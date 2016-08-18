@@ -1,5 +1,18 @@
 package com.accenture.ancillary.impl;
 
-public class AncillaryImpl {
+import org.apache.log4j.Logger;
+
+import com.accenture.ancillary.data.AncillaryDataDAL;
+import com.accenture.ancillary.service.AncillaryService;
+
+public class AncillaryImpl implements AncillaryService{
+	
+	AncillaryDataDAL dataDAL;
+	private static final Logger log = Logger.getLogger(AncillaryDataDAL.class);
+	@Override
+	public String testMethod() {
+		log.info("Test logging");
+		return "This is a test method";
+	}
 
 }

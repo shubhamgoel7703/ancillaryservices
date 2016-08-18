@@ -8,33 +8,18 @@
         http://www.springframework.org/schema/context
           http://www.springframework.org/schema/context/spring-context.xsd ">
 
-	<bean id="ComplaintService" class="com.ath.complaint.impl.ComplaintServiceImpl">
-		<property name="dataDao" ref="ComplaintDataDao" />
-		<property name="errorMessage" ref="errorMessage"/>
+	<bean id="AncillaryService" class="com.accenture.ancillary.impl.AncillaryImpl">
+		<property name="dataDAL" ref="AncillaryDAL" />
 	</bean>
 
-	<bean id="ComplaintDataDao" class="com.ath.complaint.dao.ComplaintDataDao">
-		<property name="dataSource" ref="complaintDataSource" />
-		<property name="errorMessage" ref="errorMessage"/>
+	<bean id="AncillaryDAL" class="com.accenture.ancillary.data.AncillaryDataDAL">
+		<property name="dataSource" ref="ancillaryDataSource" />
 	</bean>
-	<bean id="errorMessage" class="com.ath.complaint.exception.ErrorMessage">
-		<property name="errorMsgMap">
-			<bean
-				class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-				<property name="location">
-					<value>classpath:errormsgs.properties</value>
-				</property>
-			</bean>
-		</property>
-	</bean>
-	<!-- <bean id="complaintDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
-		<property name="jndiName" value="java:/jdbc/MangoIntegrationDataSource" /> 
-		</bean> -->
 
-	<bean id="complaintDataSource"
+	<bean id="ancillaryDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/complaintlogging" />
+		<property name="url" value="jdbc:mysql://localhost:3306/hackathon" />
 		<property name="username" value="root" />
 		<property name="password" value="mysql" />
 	</bean>
