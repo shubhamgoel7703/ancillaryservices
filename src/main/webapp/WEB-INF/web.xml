@@ -31,11 +31,14 @@
 		<url-pattern>/ancillary/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- <context-param>
+	<context-param>
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
-		<param-value>/estore</param-value>
-	</context-param> -->
+		<param-value>/ancillary</param-value>
+	</context-param>
 
-
+<context-param>
+        <param-name>resteasy.scan</param-name>
+        <param-value>true</param-value>
+    </context-param>
 	
 </web-app>
