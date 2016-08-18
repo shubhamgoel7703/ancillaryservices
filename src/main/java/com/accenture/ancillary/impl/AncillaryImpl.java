@@ -1,9 +1,12 @@
 package com.accenture.ancillary.impl;
 
+import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
 
 import com.accenture.ancillary.data.AncillaryDataDAL;
 import com.accenture.ancillary.service.AncillaryService;
+import com.accenture.ancillary.util.AncillaryUtils;
 
 public class AncillaryImpl implements AncillaryService{
 	
@@ -20,6 +23,19 @@ public class AncillaryImpl implements AncillaryService{
 	public String testMethod() {
 		log.info("Test logging");
 		return "This is a test method";
+	}
+	@Override
+	public String getHotels() {
+		try {
+			return AncillaryUtils.writeObjectAsString(getDataDAL().getHotelList());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return "oops";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "oops again";
+		}
 	}
 
 }

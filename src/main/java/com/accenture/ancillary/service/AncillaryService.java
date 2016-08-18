@@ -15,4 +15,9 @@ public interface AncillaryService {
 	@Path("/testmethod")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String testMethod();
+	
+	@GET
+	@Path("/getHotels")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getHotels();
 }
