@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans.xsd
+      	http://www.springframework.org/schema/util 
+      	http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd ">
+
+	<bean id="ComplaintService" class="com.ath.complaint.impl.ComplaintServiceImpl">
+		<property name="dataDao" ref="ComplaintDataDao" />
+		<property name="errorMessage" ref="errorMessage"/>
+	</bean>
+
+	<bean id="ComplaintDataDao" class="com.ath.complaint.dao.ComplaintDataDao">
+		<property name="dataSource" ref="complaintDataSource" />
+		<property name="errorMessage" ref="errorMessage"/>
+	</bean>
+	<bean id="errorMessage" class="com.ath.complaint.exception.ErrorMessage">
+		<property name="errorMsgMap">
+			<bean
+				class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="location">
+					<value>classpath:errormsgs.properties</value>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<!-- <bean id="complaintDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName" value="java:/jdbc/MangoIntegrationDataSource" /> 
+		</bean> -->
+
+	<bean id="complaintDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/complaintlogging" />
+		<property name="username" value="root" />
+		<property name="password" value="mysql" />
+	</bean>
+</beans>
+	
+
