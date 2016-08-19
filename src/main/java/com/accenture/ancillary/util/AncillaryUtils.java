@@ -1,6 +1,8 @@
 package com.accenture.ancillary.util;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonParseException;
@@ -57,4 +59,10 @@ public class AncillaryUtils {
 		}
 	}
 
+	public static String createStackTraceAsString(Exception e) {
+        if (e == null){ return null; }
+        StringWriter errors = new StringWriter();
+        e.printStackTrace(new PrintWriter(errors));
+        return errors.toString();
+    }
 }

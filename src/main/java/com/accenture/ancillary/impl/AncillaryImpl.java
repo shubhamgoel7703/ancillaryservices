@@ -29,13 +29,10 @@ public class AncillaryImpl implements AncillaryService{
 		try {
 			return AncillaryUtils.writeObjectAsString(getDataDAL().getHotelList());
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return "oops";
+			return AncillaryUtils.createStackTraceAsString(e);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "oops again";
-		}
+			return AncillaryUtils.createStackTraceAsString(e);
+			}
 	}
 
 }
