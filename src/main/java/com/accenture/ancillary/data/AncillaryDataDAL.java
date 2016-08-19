@@ -50,6 +50,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			}
 		}catch(Exception e){
 			log.error("exception while getting hotel details "+e);
+			throw e;
 		}finally{
 			closeConnection(jdbcConnection,preparedStatement);
 			rs.close();
@@ -75,12 +76,13 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 					servicesDto.setServiceId(rs.getInt("service_id"));
 					servicesDto.setServiceName(rs.getString("service_name"));
 					servicesDto.setServicePrice(rs.getString("service_price"));
-					servicesDto.setServiceDesc(rs.getString("service_descriptioin"));
+					servicesDto.setServiceDesc(rs.getString("service_description"));
 					servicesList.add(servicesDto);
 				}
 			}
 		}catch(Exception e){
 			log.error("exception while getting service details "+e);
+			throw e;
 		}finally{
 			closeConnection(jdbcConnection,preparedStatement);
 			rs.close();
