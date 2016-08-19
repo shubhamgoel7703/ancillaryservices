@@ -58,15 +58,22 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 		return hotelList;
 	}
 	
-	public List<ServicesDto> getServiceList() throws SQLException{
+	public List<ServicesDto> getServiceList(int hotelId) throws SQLException{
+		log.info("get services DB call with hotel id="+hotelId);
 		List<ServicesDto> servicesList=null;
 		String query = "select * from services";
+		if(hotelId>0){
+			query = "SELECT * FROM services WHERE service_id IN(SELECT service_id FROM hotel_service_map WHERE hotel_id=?)";
+		}
 		PreparedStatement preparedStatement = null;
 		Connection jdbcConnection=null;
 		ResultSet rs=null;
 		try{
 			jdbcConnection = getConnection();
 			preparedStatement=jdbcConnection.prepareStatement(query);
+			if(hotelId>0){
+				preparedStatement.setInt(1,hotelId);
+			}
 			rs = preparedStatement.executeQuery();
 			if(rs!=null && !rs.wasNull()){
 				servicesList=new ArrayList<ServicesDto>();

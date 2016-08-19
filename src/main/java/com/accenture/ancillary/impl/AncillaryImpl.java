@@ -37,7 +37,17 @@ public class AncillaryImpl implements AncillaryService{
 	@Override
 	public String getServices() {
 		try {
-			return AncillaryUtils.writeObjectAsString(getDataDAL().getServiceList());
+			return AncillaryUtils.writeObjectAsString(getDataDAL().getServiceList(0));
+		} catch (SQLException e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		} catch (Exception e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		}
+	}
+	@Override
+	public String getServicesOfHotel(String hotelId) {
+		try {
+			return AncillaryUtils.writeObjectAsString(getDataDAL().getServiceList(Integer.parseInt(hotelId)));
 		} catch (SQLException e) {
 			return AncillaryUtils.createStackTraceAsString(e);
 		} catch (Exception e) {

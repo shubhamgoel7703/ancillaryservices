@@ -2,6 +2,7 @@ package com.accenture.ancillary.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
@@ -25,4 +26,9 @@ public interface AncillaryService {
 	@Path("/getServices")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getServices();
+	
+	@GET
+	@Path("/getServicesOfHotel/{hotelId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getServicesOfHotel(@PathParam("hotelId") String hotelId);
 }
