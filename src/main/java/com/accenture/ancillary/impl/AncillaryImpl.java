@@ -9,9 +9,9 @@ import com.accenture.ancillary.service.AncillaryService;
 import com.accenture.ancillary.util.AncillaryUtils;
 
 public class AncillaryImpl implements AncillaryService{
-	
+
 	AncillaryDataDAL dataDAL;
-	
+
 	public AncillaryDataDAL getDataDAL() {
 		return dataDAL;
 	}
@@ -32,7 +32,17 @@ public class AncillaryImpl implements AncillaryService{
 			return AncillaryUtils.createStackTraceAsString(e);
 		} catch (Exception e) {
 			return AncillaryUtils.createStackTraceAsString(e);
-			}
+		}
+	}
+	@Override
+	public String getServices() {
+		try {
+			return AncillaryUtils.writeObjectAsString(getDataDAL().getServiceList());
+		} catch (SQLException e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		} catch (Exception e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		}
 	}
 
 }

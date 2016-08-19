@@ -20,4 +20,9 @@ public interface AncillaryService {
 	@Path("/getHotels")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getHotels();
+	
+	@GET
+	@Path("/getServices")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getServices();
 }

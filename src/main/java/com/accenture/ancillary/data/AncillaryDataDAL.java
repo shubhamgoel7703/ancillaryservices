@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.accenture.ancillary.dto.HotelDto;
+import com.accenture.ancillary.dto.ServicesDto;
 
 public class AncillaryDataDAL  extends JdbcDaoSupport{
 	private static final Logger log = Logger.getLogger(AncillaryDataDAL.class);
@@ -22,7 +23,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			preparedStatement.close();
 		}
 	}
-	
+
 	public List<HotelDto> getHotelList() throws SQLException{
 		List<HotelDto> hotelList=null;
 		String query = "select * from hotel";
@@ -54,5 +55,36 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			rs.close();
 		}
 		return hotelList;
+	}
+	
+	public List<ServicesDto> getServiceList() throws SQLException{
+		List<ServicesDto> servicesList=null;
+		String query = "select * from services";
+		PreparedStatement preparedStatement = null;
+		Connection jdbcConnection=null;
+		ResultSet rs=null;
+		try{
+			jdbcConnection = getConnection();
+			preparedStatement=jdbcConnection.prepareStatement(query);
+			rs = preparedStatement.executeQuery();
+			if(rs!=null && !rs.wasNull()){
+				servicesList=new ArrayList<ServicesDto>();
+				ServicesDto servicesDto;
+				while(rs.next()){
+					servicesDto=new ServicesDto();
+					servicesDto.setServiceId(rs.getInt("service_id"));
+					servicesDto.setServiceName(rs.getString("service_name"));
+					servicesDto.setServicePrice(rs.getString("service_price"));
+					servicesDto.setServiceDesc(rs.getString("service_descriptioin"));
+					servicesList.add(servicesDto);
+				}
+			}
+		}catch(Exception e){
+			log.error("exception while getting service details "+e);
+		}finally{
+			closeConnection(jdbcConnection,preparedStatement);
+			rs.close();
+		}
+		return servicesList;
 	}
 }
