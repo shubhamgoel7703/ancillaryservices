@@ -107,10 +107,10 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			jdbcConnection = getConnection();
 			preparedStatement=jdbcConnection.prepareStatement(insertResv);
 			preparedStatement.setInt(1, resvId);
-			preparedStatement.setInt(2, hotelId);
-			preparedStatement.setString(3, guestName);
-			preparedStatement.setString(4, guestAddress);
-			preparedStatement.setString(5, guestEmail);
+			preparedStatement.setString(2, guestName);
+			preparedStatement.setString(3, guestAddress);
+			preparedStatement.setString(4, guestEmail);
+			preparedStatement.setInt(5, hotelId);
 			preparedStatement.setString(6, checkIn);
 			preparedStatement.setString(7, checkOut);
 			retVal = preparedStatement.executeUpdate();
