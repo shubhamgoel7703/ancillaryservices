@@ -12,7 +12,7 @@ public class JSONUtil {
 		dto.setGuestAddress("Banshankri");
 		dto.setGuestEmail("bhat@acc.com");
 		dto.setCheckInDate("8/22/2016");
-		dto.setCheckInDate("8/24/2016");
+		dto.setCheckOutDate("8/24/2016");
 		System.out.println(convertClassToObject(dto));
 		
 	}

@@ -64,11 +64,18 @@ public class AncillaryUtils {
         if (e == null){ return null; }
         StringWriter errors = new StringWriter();
         e.printStackTrace(new PrintWriter(errors));
-        return errors.toString();
+        try {
+        	LOG.error(errors.toString());
+			return writeObjectAsString(new ErrorMessage((errors.toString().length()>0&&errors.toString().length()>=150)?errors.toString().substring(0, 150):errors.toString()));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			return "\"errorMessage\": \"Exception Occured\"";
+		}
     }
 	
 	public static int generateRandNum(){
 		Random r = new Random();
 		return r.nextInt((99999 - 11111) + 1) + 11111;
 	}
+	
 }
