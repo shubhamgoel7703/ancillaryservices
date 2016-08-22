@@ -3,6 +3,7 @@ package com.accenture.ancillary.util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonParseException;
@@ -65,4 +66,9 @@ public class AncillaryUtils {
         e.printStackTrace(new PrintWriter(errors));
         return errors.toString();
     }
+	
+	public static int generateRandNum(){
+		Random r = new Random();
+		return r.nextInt((99999 - 11111) + 1) + 11111;
+	}
 }

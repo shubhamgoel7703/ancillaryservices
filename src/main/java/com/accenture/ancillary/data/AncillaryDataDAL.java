@@ -57,7 +57,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 		}
 		return hotelList;
 	}
-	
+
 	public List<ServicesDto> getServiceList(int hotelId) throws SQLException{
 		log.info("get services DB call with hotel id="+hotelId);
 		List<ServicesDto> servicesList=null;
@@ -95,5 +95,35 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			rs.close();
 		}
 		return servicesList;
+	}
+
+	public int saveReservation(int resvId,int hotelId,String guestName,String guestAddress,String guestEmail,String checkIn,String checkOut) throws SQLException{
+		log.info("save reservation "+resvId+hotelId+guestName+guestAddress+guestEmail+checkIn+checkOut);
+		String insertResv="INSERT INTO reservation VALUES (?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = null;
+		Connection jdbcConnection=null;
+		int retVal=0;
+		try{
+			jdbcConnection = getConnection();
+			preparedStatement=jdbcConnection.prepareStatement(insertResv);
+			preparedStatement.setInt(1, resvId);
+			preparedStatement.setInt(2, hotelId);
+			preparedStatement.setString(3, guestName);
+			preparedStatement.setString(4, guestAddress);
+			preparedStatement.setString(5, guestEmail);
+			preparedStatement.setString(6, checkIn);
+			preparedStatement.setString(7, checkOut);
+			retVal = preparedStatement.executeUpdate();
+		}catch(Exception e){
+			log.error("exception while saving reservaiton  details "+e);
+			throw e;
+		}finally{
+			closeConnection(jdbcConnection,preparedStatement);
+		}
+		if(retVal>0){
+			return resvId;
+		}else{
+			return retVal;
+		}
 	}
 }
