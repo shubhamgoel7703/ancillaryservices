@@ -91,6 +91,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 					servicesDto.setServiceName(rs.getString("service_name"));
 					servicesDto.setServicePrice(rs.getString("service_price"));
 					servicesDto.setServiceDesc(rs.getString("service_description"));
+					servicesDto.setServiceType(rs.getString("service_type"));
 					servicesList.add(servicesDto);
 				}
 			}
@@ -134,7 +135,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			return retVal;
 		}
 	}
-	
+
 	public int saveServices(int resvId,int serviceId,String servStart,String servEnd,String servCost,String servReqFor) throws SQLException{
 		log.info("save services "+resvId+serviceId+servStart+servEnd+servCost+servReqFor);
 		String insertResv="INSERT INTO res_service_map(res_id,service_id,service_start,service_end,service_cost,service_required_for) VALUES (?,?,?,?,?,?)";
@@ -163,7 +164,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			return retVal;
 		}
 	}
-	
+
 	public List<ServicePerReservation> getServicePerResv(int resvId)throws SQLException{
 		log.info("getServicePerResv s"+resvId);
 		List<ServicePerReservation> servPerResv=null;
@@ -198,7 +199,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 		}
 		return servPerResv;
 	}
-	
+
 	public ReservationDto getResvDetails(int resvId)throws SQLException{
 		log.info("getResvDetails"+resvId);
 		String insertResv="SELECT r.guest_name,r.guest_address,r.guest_email,r.checkin_date,r.checkout_date,r.total_price,h.hotel_name,h.hotel_id "
@@ -233,7 +234,70 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			closeResultSet(rs);
 		}
 		return resDto;
-	
-		
+
+
+	}
+
+	public List<ServicesDto> getRecomendedServices(String emailId)throws SQLException{
+		List<ServicesDto> servicesList=new ArrayList<ServicesDto>();
+		log.info("getting recommended services"+emailId);
+		String getGuestInterest = "select guest_social_interest from guest_profile  WHERE guest_email=?";
+		String getRecommend = "SELECT * FROM services WHERE service_type IN ( ";
+		PreparedStatement preparedStatement = null;
+		Connection jdbcConnection=null;
+		ResultSet rs=null;
+		String interests="";
+		try{
+			jdbcConnection = getConnection();
+			preparedStatement=jdbcConnection.prepareStatement(getGuestInterest);
+			preparedStatement.setString(1, emailId);
+			rs = preparedStatement.executeQuery();
+			if(rs!=null && !rs.wasNull()){
+				while(rs.next()){
+					interests=rs.getString("guest_social_interest");
+				}
+			}
+		}catch(Exception e){
+			log.error("exception while getting getRecomendedServices "+e);
+			throw e;
+		}finally{
+			closeConnection(jdbcConnection,preparedStatement);
+			closeResultSet(rs);
+		}
+		if(!interests.equals("")){
+			String guestInterest[]=interests.split(",");
+			StringBuffer buffer = new StringBuffer();
+			for(String interest :guestInterest){
+				buffer.append("'").append(interest).append("',");
+			}
+			String part2=buffer.toString();
+			part2.substring(0,part2.lastIndexOf(","));
+			getRecommend=getRecommend+part2.substring(0,part2.lastIndexOf(","))+")";
+			log.info("query="+getRecommend);
+			try{
+				jdbcConnection = getConnection();
+				preparedStatement=jdbcConnection.prepareStatement(getRecommend);
+				rs = preparedStatement.executeQuery();
+				if(rs!=null && !rs.wasNull()){
+					ServicesDto servicesDto;
+					while(rs.next()){
+						servicesDto=new ServicesDto();
+						servicesDto.setServiceId(rs.getInt("service_id"));
+						servicesDto.setServiceName(rs.getString("service_name"));
+						servicesDto.setServicePrice(rs.getString("service_price"));
+						servicesDto.setServiceDesc(rs.getString("service_description"));
+						servicesDto.setServiceType(rs.getString("service_type"));
+						servicesList.add(servicesDto);
+					}
+				}
+			}catch(Exception e){
+				log.error("exception while getting getRecomendedServices "+e);
+				throw e;
+			}finally{
+				closeConnection(jdbcConnection,preparedStatement);
+				closeResultSet(rs);
+			}
+		}
+		return servicesList;
 	}
 }

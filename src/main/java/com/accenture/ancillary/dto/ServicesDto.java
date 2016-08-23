@@ -12,6 +12,14 @@ public class ServicesDto implements Serializable{
 	private String serviceName;
 	private String servicePrice;
 	private String serviceDesc;
+	private String serviceType;
+	
+	public String getServiceType() {
+		return serviceType;
+	}
+	public void setServiceType(String serviceType) {
+		this.serviceType = serviceType;
+	}
 	public int getServiceId() {
 		return serviceId;
 	}

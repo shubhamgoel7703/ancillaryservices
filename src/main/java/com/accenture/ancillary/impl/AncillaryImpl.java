@@ -74,7 +74,7 @@ public class AncillaryImpl implements AncillaryService{
 			return AncillaryUtils.createStackTraceAsString(e);
 		}
 	}
-	
+
 	@Override
 	public String saveServicesPerRes(String resvInput) {
 		try {
@@ -87,7 +87,7 @@ public class AncillaryImpl implements AncillaryService{
 			return AncillaryUtils.createStackTraceAsString(e);
 		}
 	}
-	
+
 	@Override
 	public String getSummaryForResv(String resId) {
 		try {
@@ -103,4 +103,14 @@ public class AncillaryImpl implements AncillaryService{
 			return AncillaryUtils.createStackTraceAsString(e);
 		}
 	}
+
+	@Override
+	public String getRecommendedServices(String emailId) {
+		try {
+			return AncillaryUtils.writeObjectAsString(getDataDAL().getRecomendedServices(emailId));
+		} catch (SQLException e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		} catch (Exception e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		}}
 }
