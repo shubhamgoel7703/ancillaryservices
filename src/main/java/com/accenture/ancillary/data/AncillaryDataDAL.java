@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.accenture.ancillary.dto.HotelDto;
+import com.accenture.ancillary.dto.ServicePerReservation;
 import com.accenture.ancillary.dto.ServicesDto;
 
 public class AncillaryDataDAL  extends JdbcDaoSupport{
@@ -97,9 +98,9 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 		return servicesList;
 	}
 
-	public int saveReservation(int resvId,int hotelId,String guestName,String guestAddress,String guestEmail,String checkIn,String checkOut) throws SQLException{
+	public int saveReservation(int resvId,int hotelId,String guestName,String guestAddress,String guestEmail,String checkIn,String checkOut,String resvPrice) throws SQLException{
 		log.info("save reservation "+resvId+hotelId+guestName+guestAddress+guestEmail+checkIn+checkOut);
-		String insertResv="INSERT INTO reservation VALUES (?,?,?,?,?,?,?)";
+		String insertResv="INSERT INTO reservation VALUES (?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedStatement = null;
 		Connection jdbcConnection=null;
 		int retVal=0;
@@ -113,6 +114,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			preparedStatement.setInt(5, hotelId);
 			preparedStatement.setString(6, checkIn);
 			preparedStatement.setString(7, checkOut);
+			preparedStatement.setString(8, resvPrice);
 			retVal = preparedStatement.executeUpdate();
 		}catch(Exception e){
 			log.error("exception while saving reservaiton  details "+e);
@@ -154,5 +156,40 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 		}else{
 			return retVal;
 		}
+	}
+	
+	public List<ServicePerReservation> getServicePerResv(int resvId)throws SQLException{
+		log.info("get srvices per resv"+resvId);
+		List<ServicePerReservation> servPerResv=null;
+		String insertResv="SELECT serv.service_name,rsm.service_start,rsm.service_end,rsm.service_cost "
+				+ " FROM services serv, res_service_map rsm WHERE serv.service_id=rsm.service_id AND rsm.res_id= ?";
+		PreparedStatement preparedStatement = null;
+		Connection jdbcConnection=null;
+		ResultSet rs=null;
+		try{
+			jdbcConnection = getConnection();
+			preparedStatement=jdbcConnection.prepareStatement(insertResv);
+			preparedStatement.setInt(1, resvId);
+			rs = preparedStatement.executeQuery();
+			if(rs!=null && !rs.wasNull()){
+				servPerResv=new ArrayList<ServicePerReservation>();
+				ServicePerReservation servicesDto;
+				while(rs.next()){
+					servicesDto=new ServicePerReservation();
+					servicesDto.setServiceName(rs.getString("service_name"));
+					servicesDto.setServiceStart(rs.getString("service_start"));
+					servicesDto.setServiceEnd(rs.getString("service_end"));
+					servicesDto.setServiceCost(rs.getString("service_cost"));
+					servPerResv.add(servicesDto);
+				}
+			}
+		}catch(Exception e){
+			log.error("exception while getting service details per reservation "+e);
+			throw e;
+		}finally{
+			closeConnection(jdbcConnection,preparedStatement);
+			rs.close();
+		}
+		return servPerResv;
 	}
 }

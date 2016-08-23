@@ -15,7 +15,14 @@ public class ReservationDto implements Serializable{
 	private String checkInDate;
 	private String checkOutDate;
 	private String guestEmail;
+	private String resvPrice;
 	
+	public String getResvPrice() {
+		return resvPrice;
+	}
+	public void setResvPrice(String resvPrice) {
+		this.resvPrice = resvPrice;
+	}
 	public String getCheckInDate() {
 		return checkInDate;
 	}
