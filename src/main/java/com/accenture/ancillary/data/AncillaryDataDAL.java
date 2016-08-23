@@ -222,6 +222,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 					resDto.setCheckInDate(rs.getString("checkin_date"));
 					resDto.setCheckOutDate(rs.getString("checkout_date"));
 					resDto.setResvPrice(rs.getString("total_price"));
+					resDto.setReservationId(resvId+"");
 				}
 			}
 		}catch(Exception e){
