@@ -1,11 +1,13 @@
 package com.accenture.ancillary.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.accenture.ancillary.data.AncillaryDataDAL;
 import com.accenture.ancillary.dto.ReservationDto;
+import com.accenture.ancillary.dto.ServicesDto;
 import com.accenture.ancillary.service.AncillaryService;
 import com.accenture.ancillary.util.AncillaryUtils;
 
@@ -48,7 +50,8 @@ public class AncillaryImpl implements AncillaryService{
 	@Override
 	public String getServicesOfHotel(String hotelId) {
 		try {
-			return AncillaryUtils.writeObjectAsString(getDataDAL().getServiceList(Integer.parseInt(hotelId)));
+			List<ServicesDto> serviceDto = getDataDAL().getServiceList(Integer.parseInt(hotelId));
+			return AncillaryUtils.writeObjectAsString(serviceDto.size()==0?"No Services found for the given hotel":serviceDto);
 		} catch (SQLException e) {
 			return AncillaryUtils.createStackTraceAsString(e);
 		} catch (Exception e) {
