@@ -29,9 +29,9 @@ public interface AncillaryService {
 	public String getServices();
 	
 	@POST
-	@Path("/getServicesOfHotel/{hotelId}")
+	@Path("/getServicesOfHotel")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getServicesOfHotel(@PathParam("hotelId") String hotelId);
+	public String getServicesOfHotel(String hotelId);
 	
 	@POST
 	@Path("/saveReservation")
