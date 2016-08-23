@@ -34,7 +34,6 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 		try{
 			jdbcConnection = getConnection();
 			preparedStatement=jdbcConnection.prepareStatement(query);
-			//preparedStatement.setString(1,user_name);
 			rs = preparedStatement.executeQuery();
 			if(rs!=null && !rs.wasNull()){
 				hotelList=new ArrayList<HotelDto>();
@@ -46,6 +45,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 					hotelDto.setHotelCity(rs.getString("hotel_city"));
 					hotelDto.setHotelCountry(rs.getString("hotel_country"));
 					hotelDto.setHotelShortDesc(rs.getString("hotel_short_desc"));
+					hotelDto.setHotelPrice(rs.getString("hotel_price"));
 					hotelList.add(hotelDto);
 				}
 			}

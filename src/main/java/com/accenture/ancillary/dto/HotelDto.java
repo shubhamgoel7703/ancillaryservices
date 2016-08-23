@@ -13,6 +13,13 @@ public class HotelDto implements Serializable{
 	private String hotelCity;
 	private String hotelCountry;
 	private String hotelShortDesc;
+	private String hotelPrice;
+	public String getHotelPrice() {
+		return hotelPrice;
+	}
+	public void setHotelPrice(String hotelPrice) {
+		this.hotelPrice = hotelPrice;
+	}
 	public int getHotelId() {
 		return hotelId;
 	}
