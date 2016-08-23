@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.accenture.ancillary.data.AncillaryDataDAL;
 import com.accenture.ancillary.dto.ReservationDto;
+import com.accenture.ancillary.dto.ReservationServiceDto;
 import com.accenture.ancillary.dto.ServicesDto;
 import com.accenture.ancillary.service.AncillaryService;
 import com.accenture.ancillary.util.AncillaryUtils;
@@ -65,6 +66,19 @@ public class AncillaryImpl implements AncillaryService{
 			ReservationDto resDto=(ReservationDto) AncillaryUtils.getObjectFromString(resvInput, ReservationDto.class);
 			return getDataDAL().saveReservation(AncillaryUtils.generateRandNum(), resDto.getHotelId(), resDto.getGuestName(),
 					resDto.getGuestAddress(), resDto.getGuestEmail(), resDto.getCheckInDate(), resDto.getCheckOutDate())+"";
+		} catch (SQLException e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		} catch (Exception e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		}
+	}
+	
+	@Override
+	public String saveServicesPerRes(String resvInput) {
+		try {
+			ReservationServiceDto resServDto=(ReservationServiceDto) AncillaryUtils.getObjectFromString(resvInput, ReservationServiceDto.class);
+			return getDataDAL().saveServices(resServDto.getReservationId(), resServDto.getServiceId(),
+					resServDto.getServiceStart(), resServDto.getServiceEnd(), resServDto.getServiceCost(), resServDto.getServiceReqFor())+"";
 		} catch (SQLException e) {
 			return AncillaryUtils.createStackTraceAsString(e);
 		} catch (Exception e) {

@@ -10,8 +10,36 @@ public class ReservationServiceDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int reservationId;
 	private String reservationServiceId;
-	private String serviceId;
+	private int serviceId;
+	private String serviceStart="";
+	private String serviceEnd="";
+	private String serviceCost="";
+	private String serviceReqFor="";
 	
+	public String getServiceStart() {
+		return serviceStart;
+	}
+	public void setServiceStart(String serviceStart) {
+		this.serviceStart = serviceStart;
+	}
+	public String getServiceEnd() {
+		return serviceEnd;
+	}
+	public void setServiceEnd(String serviceEnd) {
+		this.serviceEnd = serviceEnd;
+	}
+	public String getServiceCost() {
+		return serviceCost;
+	}
+	public void setServiceCost(String serviceCost) {
+		this.serviceCost = serviceCost;
+	}
+	public String getServiceReqFor() {
+		return serviceReqFor;
+	}
+	public void setServiceReqFor(String serviceReqFor) {
+		this.serviceReqFor = serviceReqFor;
+	}
 	public int getReservationId() {
 		return reservationId;
 	}
@@ -24,11 +52,12 @@ public class ReservationServiceDto implements Serializable{
 	public void setReservationServiceId(String reservationServiceId) {
 		this.reservationServiceId = reservationServiceId;
 	}
-	public String getServiceId() {
+	public int getServiceId() {
 		return serviceId;
 	}
-	public void setServiceId(String serviceId) {
+	public void setServiceId(int serviceId) {
 		this.serviceId = serviceId;
 	}
+	
 
 }

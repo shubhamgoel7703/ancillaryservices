@@ -126,4 +126,33 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			return retVal;
 		}
 	}
+	
+	public int saveServices(int resvId,int serviceId,String servStart,String servEnd,String servCost,String servReqFor) throws SQLException{
+		log.info("save services "+resvId+serviceId+servStart+servEnd+servCost+servReqFor);
+		String insertResv="INSERT INTO res_service_map(res_id,service_id,service_start,service_end,service_cost,service_required_for) VALUES (?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = null;
+		Connection jdbcConnection=null;
+		int retVal=0;
+		try{
+			jdbcConnection = getConnection();
+			preparedStatement=jdbcConnection.prepareStatement(insertResv);
+			preparedStatement.setInt(1, resvId);
+			preparedStatement.setInt(2, serviceId);
+			preparedStatement.setString(3, servStart);
+			preparedStatement.setString(4, servEnd);
+			preparedStatement.setString(5, servCost);
+			preparedStatement.setString(6, servReqFor);
+			retVal = preparedStatement.executeUpdate();
+		}catch(Exception e){
+			log.error("exception while saving service  details "+e);
+			throw e;
+		}finally{
+			closeConnection(jdbcConnection,preparedStatement);
+		}
+		if(retVal>0){
+			return resvId;
+		}else{
+			return retVal;
+		}
+	}
 }

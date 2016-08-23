@@ -36,4 +36,9 @@ public interface AncillaryService {
 	@Path("/saveReservation")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String saveReservation(String resvInput);
+	
+	@POST
+	@Path("/saveServicesPerRes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String saveServicesPerRes(String resvInput);
 }

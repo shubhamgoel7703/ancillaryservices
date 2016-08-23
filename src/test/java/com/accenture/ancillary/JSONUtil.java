@@ -1,6 +1,7 @@
 package com.accenture.ancillary;
 
 import com.accenture.ancillary.dto.ReservationDto;
+import com.accenture.ancillary.dto.ReservationServiceDto;
 import com.accenture.ancillary.util.AncillaryUtils;
 
 public class JSONUtil {
@@ -13,7 +14,17 @@ public class JSONUtil {
 		dto.setGuestEmail("bhat@acc.com");
 		dto.setCheckInDate("8/22/2016");
 		dto.setCheckOutDate("8/24/2016");
-		System.out.println(convertClassToObject(dto));
+		//System.out.println(convertClassToObject(dto));
+		
+		ReservationServiceDto dto2=new ReservationServiceDto();
+		dto2.setReservationId(12345);
+		dto2.setServiceId(30001);
+		dto2.setServiceStart("8/22/2016");
+		dto2.setServiceEnd("8/24/2016");
+		dto2.setServiceCost("75$");
+		dto2.setServiceReqFor("1");
+		System.out.println(convertClassToObject(dto2));
+		
 		
 	}
 
