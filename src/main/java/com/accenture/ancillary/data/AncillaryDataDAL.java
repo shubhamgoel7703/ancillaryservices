@@ -25,6 +25,11 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			preparedStatement.close();
 		}
 	}
+	private void closeResultSet(ResultSet rs)throws SQLException{
+		if(rs!=null){
+			rs.close();
+		}
+	}
 
 	public List<HotelDto> getHotelList() throws SQLException{
 		List<HotelDto> hotelList=null;
@@ -55,7 +60,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			throw e;
 		}finally{
 			closeConnection(jdbcConnection,preparedStatement);
-			rs.close();
+			closeResultSet(rs);
 		}
 		return hotelList;
 	}
@@ -94,7 +99,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			throw e;
 		}finally{
 			closeConnection(jdbcConnection,preparedStatement);
-			rs.close();
+			closeResultSet(rs);
 		}
 		return servicesList;
 	}
@@ -189,7 +194,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			throw e;
 		}finally{
 			closeConnection(jdbcConnection,preparedStatement);
-			rs.close();
+			closeResultSet(rs);
 		}
 		return servPerResv;
 	}
@@ -224,7 +229,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			throw e;
 		}finally{
 			closeConnection(jdbcConnection,preparedStatement);
-			rs.close();
+			closeResultSet(rs);
 		}
 		return resDto;
 	
