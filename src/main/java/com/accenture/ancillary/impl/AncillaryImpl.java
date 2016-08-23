@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.accenture.ancillary.data.AncillaryDataDAL;
+import com.accenture.ancillary.dto.GetSummaryPerResvResponse;
 import com.accenture.ancillary.dto.ReservationDto;
 import com.accenture.ancillary.dto.ReservationServiceDto;
 import com.accenture.ancillary.dto.ServicePerReservation;
@@ -91,7 +92,11 @@ public class AncillaryImpl implements AncillaryService{
 	public String getSummaryForResv(String resId) {
 		try {
 			List<ServicePerReservation> serviceDto = getDataDAL().getServicePerResv(Integer.parseInt(resId));
-			return AncillaryUtils.writeObjectAsString(serviceDto.size()==0?"No Services found for the given reservation":serviceDto);
+			ReservationDto dto = getDataDAL().getResvDetails(Integer.parseInt(resId));
+			GetSummaryPerResvResponse response= new GetSummaryPerResvResponse();
+			response.setListOfServices(serviceDto);
+			response.setReservationDto(dto);
+			return AncillaryUtils.writeObjectAsString(response);
 		} catch (SQLException e) {
 			return AncillaryUtils.createStackTraceAsString(e);
 		} catch (Exception e) {

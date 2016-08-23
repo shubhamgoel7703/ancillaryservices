@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.accenture.ancillary.dto.HotelDto;
+import com.accenture.ancillary.dto.ReservationDto;
 import com.accenture.ancillary.dto.ServicePerReservation;
 import com.accenture.ancillary.dto.ServicesDto;
 
@@ -159,7 +160,7 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 	}
 	
 	public List<ServicePerReservation> getServicePerResv(int resvId)throws SQLException{
-		log.info("get srvices per resv"+resvId);
+		log.info("getServicePerResv s"+resvId);
 		List<ServicePerReservation> servPerResv=null;
 		String insertResv="SELECT serv.service_name,rsm.service_start,rsm.service_end,rsm.service_cost "
 				+ " FROM services serv, res_service_map rsm WHERE serv.service_id=rsm.service_id AND rsm.res_id= ?";
@@ -191,5 +192,42 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			rs.close();
 		}
 		return servPerResv;
+	}
+	
+	public ReservationDto getResvDetails(int resvId)throws SQLException{
+		log.info("getResvDetails"+resvId);
+		String insertResv="SELECT r.guest_name,r.guest_address,r.guest_email,r.checkin_date,r.checkout_date,r.total_price,h.hotel_name,h.hotel_id "
+				+ " FROM reservation r,hotel h WHERE r.hotel_id=h.hotel_id AND  r.res_id=?";
+		PreparedStatement preparedStatement = null;
+		Connection jdbcConnection=null;
+		ResultSet rs=null;
+		ReservationDto resDto=null;
+		try{
+			jdbcConnection = getConnection();
+			preparedStatement=jdbcConnection.prepareStatement(insertResv);
+			preparedStatement.setInt(1, resvId);
+			rs = preparedStatement.executeQuery();
+			if(rs!=null && !rs.wasNull()){
+				while(rs.next()){
+					resDto=new ReservationDto();
+					resDto.setHotelId(rs.getInt("hotel_id"));
+					resDto.setGuestName(rs.getString("guest_name"));
+					resDto.setGuestEmail(rs.getString("guest_email"));
+					resDto.setGuestAddress(rs.getString("guest_address"));
+					resDto.setCheckInDate(rs.getString("checkin_date"));
+					resDto.setCheckOutDate(rs.getString("checkout_date"));
+					resDto.setResvPrice(rs.getString("total_price"));
+				}
+			}
+		}catch(Exception e){
+			log.error("exception while getting getResvDetails "+e);
+			throw e;
+		}finally{
+			closeConnection(jdbcConnection,preparedStatement);
+			rs.close();
+		}
+		return resDto;
+	
+		
 	}
 }
