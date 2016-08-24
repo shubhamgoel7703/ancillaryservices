@@ -65,6 +65,7 @@ public class AncillaryImpl implements AncillaryService{
 
 	@Override
 	public String saveReservation(String resvInput) {
+		log.info("input :"+ resvInput);
 		try {
 			ReservationDto resDto=(ReservationDto) AncillaryUtils.getObjectFromString(resvInput, ReservationDto.class);
 			return getDataDAL().saveReservation(AncillaryUtils.generateRandNum(), resDto.getHotelId(), resDto.getGuestName(),
@@ -78,6 +79,7 @@ public class AncillaryImpl implements AncillaryService{
 
 	@Override
 	public String saveServicesPerRes(String resvInput) {
+		log.info("input"+resvInput);
 		try {
 			ReservationServiceDto resServDto=(ReservationServiceDto) AncillaryUtils.getObjectFromString(resvInput, ReservationServiceDto.class);
 			return getDataDAL().saveServices(resServDto.getReservationId(), resServDto.getServiceId(),
