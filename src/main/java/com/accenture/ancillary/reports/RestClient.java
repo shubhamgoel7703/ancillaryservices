@@ -14,9 +14,9 @@ import com.accenture.ancillary.util.AncillaryUtils;
 
 public class RestClient {
 
-	public static List<RevenueReportDto> getData()throws Exception{
+	public static List<RevenueReportDto> getData(String input)throws Exception{
 
-		String uri = "http://52.76.153.228:8080/AncillaryService/restservice/getRevenueReport";
+		String uri = "http://localhost:8080/AncillaryService/restservice/getRevenueReport";
 		//WebTarget target = client.target(uri);
 		URL url = new URL(uri);
 		HttpURLConnection connection =
@@ -24,7 +24,7 @@ public class RestClient {
 		connection.setDoOutput(true);
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("Accept", "application/json");
-		String input = "8/01/2016";
+		//String input = "8/01/2016";
 
 		OutputStream os = connection.getOutputStream();
 		os.write(input.getBytes());
@@ -40,8 +40,7 @@ public class RestClient {
 		}
 
 		System.out.println(crunchifyBuilder.toString());
-		List<RevenueReportDto> resp=(List<RevenueReportDto>)AncillaryUtils.getObjectFromString(crunchifyBuilder.toString(), RevenueReportDto.class);
-
+		List<RevenueReportDto> resp=(List<RevenueReportDto>)AncillaryUtils.getListFromString(crunchifyBuilder.toString(), RevenueReportDto.class);
 		connection.disconnect();
 		return resp;
 	}

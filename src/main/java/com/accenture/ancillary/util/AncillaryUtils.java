@@ -3,12 +3,14 @@ package com.accenture.ancillary.util;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.type.TypeFactory;
 import org.omg.CORBA.SystemException;
 
 public class AncillaryUtils {
@@ -78,4 +80,25 @@ public class AncillaryUtils {
 		return r.nextInt((99999 - 11111) + 1) + 11111;
 	}
 	
+	/**
+	 * @param strObject
+	 * @param requiredClass
+	 * @return
+	 * @throws SystemException
+	 */
+	public static List<?> getListFromString(String strObject,Class<?> requiredClass) throws SystemException{
+		LOG.debug("Entering getListFromString method with String ::"+strObject);
+		try {
+			return mapper.readValue(strObject, TypeFactory.collectionType(List.class, requiredClass));
+		} catch (JsonParseException e) {
+			LOG.error("JsonParseException Exception occured!!");
+			return null;
+		} catch (JsonMappingException e) {
+			LOG.error("JsonMappingException Exception occured!!");
+			return null;
+		} catch (IOException e) {
+			LOG.error("IOException Exception occured!!");
+			return null;
+		}
+	}
 }

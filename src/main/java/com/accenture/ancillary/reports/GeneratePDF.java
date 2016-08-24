@@ -19,6 +19,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class GeneratePDF{
 	public static void main(String[] args)throws DocumentException,IOException{
+		generateRevReport("8/21/2016");
 
 	}	
 
@@ -37,7 +38,7 @@ public class GeneratePDF{
 			Paragraph chapterTitle = new Paragraph("Fortune Hotel", blackFont);
 
 			chapterTitle.setAlignment(Element.ALIGN_CENTER);
-			Paragraph sectionContent = new Paragraph("Revenue summary report for additional services for the month of august", redFont);
+			Paragraph sectionContent = new Paragraph("Revenue summary report for additional services for period :"+startDate, redFont);
 
 
 			document.add(chapterTitle);
@@ -83,7 +84,7 @@ public class GeneratePDF{
 			table.addCell(cell3);
 			table.addCell(cell4);
 
-			List<RevenueReportDto> resp = RestClient.getDataDirectly("");
+			List<RevenueReportDto> resp = RestClient.getData(startDate);
 			PdfPCell cell=null;
 			int i=0;
 			for(RevenueReportDto spr:resp){
