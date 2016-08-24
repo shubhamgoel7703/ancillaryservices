@@ -105,9 +105,9 @@ public class AncillaryImpl implements AncillaryService{
 				for(ServicePerReservation obj:serviceDto){
 					saving+=Double.parseDouble(obj.getServiceCost());
 				}
-				saving=saving*0.05;
 			}
-			response.setSaving(""+saving);
+			response.setTotalCost(Integer.parseInt(dto.getResvPrice())+saving+"");
+			response.setSaving(""+saving*0.05);
 			return AncillaryUtils.writeObjectAsString(response);
 		} catch (SQLException e) {
 			return AncillaryUtils.createStackTraceAsString(e);

@@ -12,7 +12,14 @@ public class GetSummaryPerResvResponse implements Serializable{
 	private List<ServicePerReservation> listOfServices;
 	private ReservationDto reservationDto;
 	private String saving;
+	private String totalCost;
 	
+	public String getTotalCost() {
+		return totalCost;
+	}
+	public void setTotalCost(String totalCost) {
+		this.totalCost = totalCost;
+	}
 	public String getSaving() {
 		return saving;
 	}
