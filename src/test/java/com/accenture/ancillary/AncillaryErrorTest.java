@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
 
 import junit.framework.Assert;
 
-public class AncillaryErrorScenario {
+public class AncillaryErrorTest{
 	static WebDriver driver;
 	public String FF="firefox";
 	public String CH="chrome";

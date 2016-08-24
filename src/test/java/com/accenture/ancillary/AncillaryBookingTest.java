@@ -14,7 +14,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class AncillaryBookingScenario {
+public class AncillaryBookingTest {
 	static WebDriver driver;
 	public String FF="firefox";
 	public String CH="chrome";
