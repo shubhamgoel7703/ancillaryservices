@@ -141,6 +141,6 @@ public class AncillaryImpl implements AncillaryService{
 	@Override
 	public String generateReport(String startDate) {
 		GeneratePDF.generateRevReport(startDate);
-		return null;
+		return "Report is generated!!";
 	}
 }

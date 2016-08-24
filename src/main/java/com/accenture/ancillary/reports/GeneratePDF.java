@@ -31,7 +31,7 @@ public class GeneratePDF{
 		Document document = new Document();
 		try
 		{
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("FortuneSummryReport.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\a.srinivasa.murthy\\git\\ancillaryservices\\FortuneSummryReport.pdf"));
 			document.open();
 
 			//Create chapter and sections
