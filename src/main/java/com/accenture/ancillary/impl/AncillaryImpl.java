@@ -96,11 +96,12 @@ public class AncillaryImpl implements AncillaryService{
 			GetSummaryPerResvResponse response= new GetSummaryPerResvResponse();
 			response.setListOfServices(serviceDto);
 			response.setReservationDto(dto);
-			int saving=0;
+			double saving=0;
 			if(serviceDto!=null && serviceDto.size()>0){
 				for(ServicePerReservation obj:serviceDto){
-					saving+=Integer.parseInt(obj.getServiceCost());
+					saving+=Double.parseDouble(obj.getServiceCost());
 				}
+				saving=saving*0.05;
 			}
 			response.setSaving(""+saving);
 			return AncillaryUtils.writeObjectAsString(response);
@@ -120,4 +121,10 @@ public class AncillaryImpl implements AncillaryService{
 		} catch (Exception e) {
 			return AncillaryUtils.createStackTraceAsString(e);
 		}}
+	
+	@Override
+	public String getRevenueReport(String emailId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

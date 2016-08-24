@@ -51,4 +51,9 @@ public interface AncillaryService {
 	@Path("/getRecommendedServices")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getRecommendedServices(String emailId);
+	
+	@POST
+	@Path("/getRevenueReport")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getRevenueReport(String input);
 }
