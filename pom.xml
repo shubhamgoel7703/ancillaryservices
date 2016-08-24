@@ -120,7 +120,7 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-spring</artifactId>
-			<version>2.3.4.Final</version>
+			<version>2.3.4.Final</version> 
 		</dependency>
 
 		<!-- need for solution 1, if your container don't have this -->
