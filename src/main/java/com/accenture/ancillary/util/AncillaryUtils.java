@@ -66,7 +66,7 @@ public class AncillaryUtils {
         e.printStackTrace(new PrintWriter(errors));
         try {
         	LOG.error(errors.toString());
-			return writeObjectAsString(new ErrorMessage((errors.toString().length()>0&&errors.toString().length()>=150)?errors.toString().substring(0, 150):errors.toString()));
+			return writeObjectAsString(new ErrorMessage((errors.toString().length()>0&&errors.toString().length()>=200)?errors.toString().substring(0, 200):errors.toString()));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 			return "\"errorMessage\": \"Exception Occured\"";
