@@ -12,6 +12,7 @@ import com.accenture.ancillary.dto.ReservationServiceDto;
 import com.accenture.ancillary.dto.RevenueReportDto;
 import com.accenture.ancillary.dto.ServicePerReservation;
 import com.accenture.ancillary.dto.ServicesDto;
+import com.accenture.ancillary.reports.GeneratePDF;
 import com.accenture.ancillary.service.AncillaryService;
 import com.accenture.ancillary.util.AncillaryUtils;
 
@@ -135,5 +136,11 @@ public class AncillaryImpl implements AncillaryService{
 		} catch (Exception e) {
 			return AncillaryUtils.createStackTraceAsString(e);
 		}
+	}
+	
+	@Override
+	public String generateReport(String startDate) {
+		GeneratePDF.generateRevReport(startDate);
+		return null;
 	}
 }

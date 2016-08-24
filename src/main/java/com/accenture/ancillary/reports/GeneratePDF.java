@@ -17,8 +17,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class GeneratePDF
-{
+public class GeneratePDF{
 	public static void main(String[] args)throws DocumentException,IOException{
 
 	}	
