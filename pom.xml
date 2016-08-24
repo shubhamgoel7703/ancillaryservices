@@ -112,16 +112,16 @@
 			<artifactId>logback-core</artifactId>
 			<version>1.0.13</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-spring 
+		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-spring -->
+		<!-- <dependency> <groupId>org.jboss.resteasy</groupId> <artifactId>resteasy-spring</artifactId> 
+			<version>3.0.19.Final</version> </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-spring -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-spring</artifactId>
-			<version>3.0.19.Final</version>
-		</dependency>-->
-
-		<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-spring -->
-		<!-- <dependency> <groupId>org.jboss.resteasy</groupId> <artifactId>resteasy-spring</artifactId> 
-			<version>2.3.4.Final</version> </dependency> -->
+			<version>2.3.4.Final</version>
+		</dependency>
 
 		<!-- need for solution 1, if your container don't have this -->
 		<dependency>
