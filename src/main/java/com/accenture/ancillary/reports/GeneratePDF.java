@@ -109,7 +109,7 @@ public class GeneratePDF{
 				cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 				table.addCell(cell);
 
-				cell=new PdfPCell(new Paragraph(spr.getServiceCost(),blackFont1));
+				cell=new PdfPCell(new Paragraph("$"+spr.getServiceCost(),blackFont1));
 				cell.setBorderColor(BaseColor.DARK_GRAY);
 				cell.setPaddingLeft(10);
 				cell.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -120,7 +120,7 @@ public class GeneratePDF{
 			}
 
 			document.add(table);
-			Paragraph sectionContent2 = new Paragraph("Total revenue : "+i*0.05, greenfont);	
+			Paragraph sectionContent2 = new Paragraph("Total revenue : $"+i*0.05, greenfont);	
 			document.add(sectionContent2);
 			document.close();
 			writer.close();
