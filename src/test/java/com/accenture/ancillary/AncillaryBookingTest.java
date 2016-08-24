@@ -25,7 +25,7 @@ public class AncillaryBookingTest {
 	public void loadURL() throws Exception
 	{
 
-		driver = utility.setup(FF);
+		driver = utility.setup(CH);
 		driver.get("http://52.76.153.228:8080/fortune-web/web/index.html");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);

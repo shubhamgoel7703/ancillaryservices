@@ -28,7 +28,7 @@ public class utility {
 		else if(browser.equalsIgnoreCase("chrome")){
 
 			String Path = System.getProperty("user.dir");
-			System.setProperty("webdriver.chrome.driver", Path+"/chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\a.srinivasa.murthy\\git\\ancillaryservices\\chromedriver.exe");
 			driver = new ChromeDriver();
 		}
 
