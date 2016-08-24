@@ -9,6 +9,7 @@ import com.accenture.ancillary.data.AncillaryDataDAL;
 import com.accenture.ancillary.dto.GetSummaryPerResvResponse;
 import com.accenture.ancillary.dto.ReservationDto;
 import com.accenture.ancillary.dto.ReservationServiceDto;
+import com.accenture.ancillary.dto.RevenueReportDto;
 import com.accenture.ancillary.dto.ServicePerReservation;
 import com.accenture.ancillary.dto.ServicesDto;
 import com.accenture.ancillary.service.AncillaryService;
@@ -123,8 +124,14 @@ public class AncillaryImpl implements AncillaryService{
 		}}
 	
 	@Override
-	public String getRevenueReport(String emailId) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getRevenueReport(String startDate) {
+		try {
+			List<RevenueReportDto> serviceDto = getDataDAL().getRevenueReport(startDate);
+			return AncillaryUtils.writeObjectAsString(serviceDto);
+		} catch (SQLException e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		} catch (Exception e) {
+			return AncillaryUtils.createStackTraceAsString(e);
+		}
 	}
 }

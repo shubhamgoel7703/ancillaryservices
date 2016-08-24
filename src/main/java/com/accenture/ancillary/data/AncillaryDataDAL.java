@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.accenture.ancillary.dto.HotelDto;
 import com.accenture.ancillary.dto.ReservationDto;
+import com.accenture.ancillary.dto.RevenueReportDto;
 import com.accenture.ancillary.dto.ServicePerReservation;
 import com.accenture.ancillary.dto.ServicesDto;
 
@@ -299,5 +300,42 @@ public class AncillaryDataDAL  extends JdbcDaoSupport{
 			}
 		}
 		return servicesList;
+	}
+	
+	public List<RevenueReportDto> getRevenueReport(String startDate)throws SQLException{
+		log.info("getRevenueReport s"+startDate);
+		List<RevenueReportDto> servPerResv=null;
+		String insertResv="SELECT rsm.res_id,serv.service_name,rsm.service_start,rsm.service_end,rsm.service_cost "
+				+ " FROM services serv, res_service_map rsm  WHERE serv.service_id=rsm.service_id "
+				+" AND STR_TO_DATE(rsm.service_start, '%m/%d/%Y') >= STR_TO_DATE(?, '%m/%d/%Y') ";
+		PreparedStatement preparedStatement = null;
+		Connection jdbcConnection=null;
+		ResultSet rs=null;
+		try{
+			jdbcConnection = getConnection();
+			preparedStatement=jdbcConnection.prepareStatement(insertResv);
+			preparedStatement.setString(1, startDate);
+			rs = preparedStatement.executeQuery();
+			if(rs!=null && !rs.wasNull()){
+				servPerResv=new ArrayList<RevenueReportDto>();
+				RevenueReportDto servicesDto;
+				while(rs.next()){
+					servicesDto=new RevenueReportDto();
+					servicesDto.setServiceName(rs.getString("service_name"));
+					servicesDto.setServiceStart(rs.getString("service_start"));
+					servicesDto.setServiceEnd(rs.getString("service_end"));
+					servicesDto.setServiceCost(rs.getString("service_cost"));
+					servicesDto.setResId(rs.getInt("res_id"));
+					servPerResv.add(servicesDto);
+				}
+			}
+		}catch(Exception e){
+			log.error("exception while getting getRevenueReport "+e);
+			throw e;
+		}finally{
+			closeConnection(jdbcConnection,preparedStatement);
+			closeResultSet(rs);
+		}
+		return servPerResv;
 	}
 }

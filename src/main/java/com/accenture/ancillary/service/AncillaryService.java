@@ -55,5 +55,5 @@ public interface AncillaryService {
 	@POST
 	@Path("/getRevenueReport")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getRevenueReport(String input);
+	public String getRevenueReport(String startDate);
 }
