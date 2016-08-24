@@ -96,6 +96,13 @@ public class AncillaryImpl implements AncillaryService{
 			GetSummaryPerResvResponse response= new GetSummaryPerResvResponse();
 			response.setListOfServices(serviceDto);
 			response.setReservationDto(dto);
+			int saving=0;
+			if(serviceDto!=null && serviceDto.size()>0){
+				for(ServicePerReservation obj:serviceDto){
+					saving+=Integer.parseInt(obj.getServiceCost());
+				}
+			}
+			response.setSaving(""+saving);
 			return AncillaryUtils.writeObjectAsString(response);
 		} catch (SQLException e) {
 			return AncillaryUtils.createStackTraceAsString(e);

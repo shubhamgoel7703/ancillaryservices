@@ -11,6 +11,14 @@ public class GetSummaryPerResvResponse implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<ServicePerReservation> listOfServices;
 	private ReservationDto reservationDto;
+	private String saving;
+	
+	public String getSaving() {
+		return saving;
+	}
+	public void setSaving(String saving) {
+		this.saving = saving;
+	}
 	public List<ServicePerReservation> getListOfServices() {
 		return listOfServices;
 	}
