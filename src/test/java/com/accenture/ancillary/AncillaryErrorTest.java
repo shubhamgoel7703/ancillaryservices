@@ -26,7 +26,7 @@ public class AncillaryErrorTest{
 	public void Login() throws Exception
 	{
 		driver = utility.setup(CH);
-		driver.get("file:///C:/Users/diksha.sharma/Desktop/fortune-web%20(1)/fortune-web/web/index.html");
+		driver.get("http://52.76.153.228:8080/fortune-web/web/index.html");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 	}
@@ -55,7 +55,7 @@ public class AncillaryErrorTest{
 
 		Assert.assertTrue("Text not found!", errorrMessage.contains("Please enter valid information"));
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(scrFile, new File("C:\\Desktop\\booking.jpg"));
+		FileUtils.copyFile(scrFile, new File("C:\\apps\\testing\\booking.jpg"));
 
 	}
 

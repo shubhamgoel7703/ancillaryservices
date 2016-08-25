@@ -62,7 +62,7 @@ public class AncillaryBookingTest {
 		System.out.println("Confirnmation Number:"+PNRNumber);
 
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(scrFile, new File("C:\\Desktop\\booking.jpg"));
+		FileUtils.copyFile(scrFile, new File("C:\\apps\\testing\\booking.jpg"));
 	}
 
 	@Test(priority = 2)
