@@ -82,11 +82,11 @@ public class ApplicationDownloader{
 			response.setContentType(strFileMimeType);
 			//Removing the relative directory path from the file name, if any
 			arrDirPaths = strFilePath.split("/");
-			if(null != arrDirPaths) {
+			/*if(null != arrDirPaths) {
 				log.info("arrDirPath is not null: " + arrDirPaths);
 				apkName=arrDirPaths[arrDirPaths.length-1];
 				log.info("strFileName: " + apkName);
-			}
+			}*/
 			response.setHeader("Content-Disposition", "attachment;filename=" +apkName);
 			response.setBufferSize(4096);
 			response.setContentLength(arrBytes.length);
