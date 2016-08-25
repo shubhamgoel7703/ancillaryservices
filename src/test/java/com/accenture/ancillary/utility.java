@@ -1,5 +1,6 @@
 package com.accenture.ancillary;
 
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,6 +13,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.Parameters;
 
 public class utility {
@@ -23,43 +26,16 @@ public class utility {
 
 		if(browser.equalsIgnoreCase("firefox")){
 			driver = new FirefoxDriver();
-		}
-
-		else if(browser.equalsIgnoreCase("chrome")){
-
+		}else if(browser.equalsIgnoreCase("chrome")){
 			System.setProperty("webdriver.chrome.driver", "C:\\apps\\testing\\chromedriver.exe");
 			driver = new ChromeDriver();
-		}
-
-		else if(browser.equalsIgnoreCase("ie")){
-			//driver = new InternetExplorerDriver();
-
-			//	  DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-			//	  capabilities.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
-			//	  capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-			//	  capabilities.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
-			//	  capabilities.setCapability("allow-blocked-content", true);
-			//	  capabilities.setCapability("allowBlockedContent", true);
-			//	  capabilities.setCapability("Allow blocked content", true);
+		}else if(browser.equalsIgnoreCase("ie")){
 			String Path1 = System.getProperty("user.dir");
 			System.setProperty("webdriver.ie.driver", Path1+"/IEDriverServer.exe");
-			//			DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
-			//			cap.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
-			//			cap.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
-			//			cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-			//			cap.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
-			//			cap.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-			//			cap.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
-			//			cap.setCapability("Allow blocked content", true);
-			//          cap.setCapability(CapabilityType.);
-			//          cap.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, false);
-			//          cap.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, false);
-
 			driver = new InternetExplorerDriver();
-
-		}
-
-		else{
+		}else if(browser.equalsIgnoreCase("sauce")){
+			driver =  new RemoteWebDriver(new URL("http://brij:807baefe-df89-4e59-b4f1-7f5bd8fbbf39@ondemand.saucelabs.com:80/wd/hub"),DesiredCapabilities.firefox());
+		}else{
 			throw new Exception("Browser is not correct");
 		}
 
