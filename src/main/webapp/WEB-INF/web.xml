@@ -31,6 +31,17 @@
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<display-name>application</display-name>
+		<servlet-name>application</servlet-name>
+		<servlet-class>com.accenture.ancillary.download.AppDownloadServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>application</servlet-name>
+		<url-pattern>/download/application</url-pattern>
+	</servlet-mapping>
+	
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
