@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hotel Fortune</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="js/jquery.min.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&amp;subset=latin,greek,greek-ext,vietnamese,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+
+
+
+<!-- Stylesheets -->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="css/owl.carousel.css">
+<link rel="stylesheet" href="css/prettyPhoto.css">
+<link rel="stylesheet" href="css/servicesStyle.css" />
+<link rel="stylesheet" href="css/color-blue.css" />
+
+<script src="js/modernizr.custom.js"></script>
+
+
+<script>
+
+ function getSummary() {
+				
+				$(document).ready(function(){
+					$.ajax({
+						url : "http://52.76.153.228:8080/AncillaryService/restservice/getSummaryForResv",
+                        type : "POST",
+						//data : "12345",
+                        //data : decodeURIComponent(getUrlVars()["resId"]),
+						data : localStorage.getItem('reservationNum'),
+                        dataType : "json",
+                        contentType : "application/json"
+                        }).done(
+							function(data) {
+								$('#reservationId').append(data.reservationDto.reservationId);
+								$('#guestName').append(data.reservationDto.guestName);
+								$('#resvPrice').append("USD $"+data.reservationDto.resvPrice);
+								$('#checkInDate').append(data.reservationDto.checkInDate);
+								$('#checkOutDate').append(data.reservationDto.checkOutDate);
+                                for (i=0;i<Object.keys(data.listOfServices).length;i++){
+									
+									
+									$('#serviceDetails').append("<p><strong>Service Name:</strong>   "+ data.listOfServices[i].serviceName);
+									$('#serviceDetails').append("<p><strong>Service Cost:</strong>   USD $"+ data.listOfServices[i].serviceCost);
+									$('#serviceDetails').append("<p><strong>Service Start:</strong>   "+ data.listOfServices[i].serviceStart);
+									$('#serviceDetails').append("<p><strong>Service End:</strong>   "+ data.listOfServices[i].serviceEnd+"<br><br>");
+									
+								}
+								$('#totalCost').append("Total Cost: <strong>USD $"+data.totalCost+"</strong><br><br>");
+								$('#totalSavings').append("You have saved <strong>USD $"+data.saving+"</strong> by booking additional services through our website");
+								}   
+							) });
+																
+																
+                                                
+        
+                   }
+												
+</script>												
+
+
+</head>
+<body onload="getSummary()">
+<!--header starts-->
+<div class="header">
+	 <div class="top-header">
+		 <div class="container">
+			 <div class="logo">
+				 <a href="index.html"><img src="images/logo.png"/></a>
+			 <div class="clearfix"></div>
+			 </div>
+			 <span class="menu"> </span>
+			 <div class="m-clear"></div>
+			 <div class="top-menu">
+			     <ul>
+					 <li><a href="index.html">HOME</a></li>
+					 <li><a href="facilities.html">FACILITIES</a></li>
+					 <li><a href="restaurant.html">RESTAURANT</a></li>
+					 <li><a  href="contact.html">CONTACT US</a></li>
+						<div class="clearfix"></div>
+				 </ul>
+				 <script>
+					$("span.menu").click(function(){
+						$(".top-menu ul").slideToggle(200);
+					});
+					
+					
+				</script>
+			 </div>
+		  </div>
+	  </div>
+</div>
+<!---->
+<div class="contact-bg2">
+	 <div class="container">
+		 <div class="booking">
+			 <h3>Reservation Summary</h3>			
+			 <div class="col-md-8 booking-form">
+				<script>
+				function getUrlVars() {
+					var vars = {};
+					var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+					});
+					return vars;
+				}
+				</script>
+				<div id="propertyInfo">
+					<div class="propertyName">
+						Confirmation Id :  <span id="reservationId"/>
+					</div>
+					<div class="location">
+						Name : <span id="guestName"/>
+					</div>
+					<div class="propertyRate">
+						Rate: <span id="resvPrice"/>
+					</div>
+					<div class="location">
+						Checkin Date : <span id="checkInDate"/>
+					</div>
+					<div class="location">
+						 Checkout Date : <span id="checkOutDate"/>
+					</div>
+				</div>
+				 
+				 <br>
+				 <div id="servicesInfo">
+					 <h4>Additional Services Booked</h4>
+					 <br>
+					 <div id="serviceDetails">
+					 </div>
+					 <div id="totalCost"></div>
+					 <div id="totalSavings">
+					 </div> 
+				 </div>
+			 </div>
+			
+		
+				<div class="clearfix"> </div>
+
+			 </div>
+		 </div>
+	 </div>
+	 
+
+<!--  ::: ITINARARY START ::: -->
+<section id="itinarary" class="page-block BGprime">
+	<div class="container">
+		<div class="row">
+        	<div class="col-md-12 wow zoomIn" data-wow-duration="0.50s" data-wow-delay="0.50s">
+            	<h1 class="text-center"><span>TOUR</span> ITINERARY<small>Highlights Of Your Journey</small></h1>
+            </div>
+        </div>
+	</div>
+	
+    <div class="tube">
+    	<span class="start">START</span>
+        <span class="end">END</span>
+    </div>
+    <div id="car"></div>
+    					
+    <!-- ::: Itinarary Start ::: -->
+    <div class="itinarary">
+        <div class="line"></div>
+                
+        <!-- ::: Place ::: -->
+        <div class="day">
+            <div class="left placeImg">
+                <img src="images/places/01.jpg" width="800" height="480" alt="Place 1">
+            </div>
+            <div class="right placeInfo">
+                <div class="dayNum abs">DAY 1</div>
+                <h2>Snow Mountain city</h2>
+                <span>Province / Snow Mountain</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque, purus sit amet elementum blandit, sem arcu egestas quam, eget malesuada sem libero eu ante. Duis nec ultricies enim. Sed cursus volutpat finibus. Morbi at ornare purus. Vivamus congue suscipit dui nec fringilla. Nam auctor velit nec nisi molestie, ut maximus libero euismod. Nam dolor nunc, consequat nec sollicitudin vel, commodo vitae ex.</p>
+                <ul class="special">
+                    <li><i class="fa fa-map-marker"></i><h6>Tourist Attraction:</h6>Sunrise Point of Riverview</li>
+                    <li><i class="fa fa-shopping-cart"></i><h6>Best Buy of this Place:</h6>Handmade Wooden Accessories</li>
+                    <li><i class="fa fa-cutlery"></i><h6>Food Speciality:</h6>Sushie</li>
+                    <li><i class="fa fa-street-view"></i><h6>Activity:</h6>Two Hours Boating Ride</li>
+                </ul><div class="clear"></div>
+                <div class="delight"><i class="fa fa-star"></i> <h6>TOUR DELIGHT : </h6>Dinner with Ice Cream Treat</div>
+            </div><div class="clear"></div>
+        </div><div class="clear"></div>
+        
+        <!-- ::: Place ::: -->
+        <div class="day">
+            <div class="left placeInfo">
+                <div class="dayNum abs">DAY 2</div>
+                <h2>Blue Sky city</h2>
+                <span>Province / Blue Sky</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque, purus sit amet elementum blandit, sem arcu egestas quam, eget malesuada sem libero eu ante. Duis nec ultricies enim. Sed cursus volutpat finibus. Morbi at ornare purus. Vivamus congue suscipit dui nec fringilla. Nam auctor velit nec nisi molestie, ut maximus libero euismod. Nam dolor nunc, consequat nec sollicitudin vel, commodo vitae ex.</p>
+                <ul class="special">
+                    <li><i class="fa fa-map-marker"></i><h6>Tourist Attraction:</h6>Sunrise Point of Riverview</li>
+                    <li><i class="fa fa-shopping-cart"></i><h6>Best Buy of this Place:</h6>Handmade Wooden Accessories</li>
+                    <li><i class="fa fa-cutlery"></i><h6>Food Speciality:</h6>Sushie</li>
+                    <li><i class="fa fa-street-view"></i><h6>Activity:</h6>Two Hours Boating Ride</li>
+                </ul><div class="clear"></div>
+                <div class="delight"><i class="fa fa-star"></i> <h6>TOUR DELIGHT : </h6>Dinner with Ice Cream Treat</div>
+            </div>
+            <div class="right placeImg">
+            <img src="images/places/02.jpg" width="800" height="480" alt="Place 2">
+            </div><div class="clear"></div>
+        </div><div class="clear"></div>
+        
+        <!-- ::: Place ::: -->
+        <div class="day">
+            <div class="left placeImg">
+                <img src="images/places/03.jpg" width="800" height="480" alt="Place 3">
+            </div>
+            <div class="right placeInfo">
+                <div class="dayNum abs">DAY 3</div>
+                <h2>Lake city</h2>
+                <span>Province / Lake City</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque, purus sit amet elementum blandit, sem arcu egestas quam, eget malesuada sem libero eu ante. Duis nec ultricies enim. Sed cursus volutpat finibus. Morbi at ornare purus. Vivamus congue suscipit dui nec fringilla. Nam auctor velit nec nisi molestie, ut maximus libero euismod. Nam dolor nunc, consequat nec sollicitudin vel, commodo vitae ex.</p>
+                <ul class="special">
+                    <li><i class="fa fa-map-marker"></i><h6>Tourist Attraction:</h6>Sunrise Point of Riverview</li>
+                    <li><i class="fa fa-shopping-cart"></i><h6>Best Buy of this Place:</h6>Handmade Wooden Accessories</li>
+                    <li><i class="fa fa-cutlery"></i><h6>Food Speciality:</h6>Sushie</li>
+                    <li><i class="fa fa-street-view"></i><h6>Activity:</h6>Two Hours Boating Ride</li>
+                </ul><div class="clear"></div>
+                <div class="delight"><i class="fa fa-star"></i> <h6>TOUR DELIGHT : </h6>Dinner with Ice Cream Treat</div>
+            </div><div class="clear"></div>
+        </div><div class="clear"></div>
+        
+        <!-- ::: Place ::: -->
+        <div class="day">
+            <div class="left placeInfo">
+                <div class="dayNum abs">DAY 4</div>
+                <h2>Awesome Beach</h2>
+                <span>Province / Awesome</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque, purus sit amet elementum blandit, sem arcu egestas quam, eget malesuada sem libero eu ante. Duis nec ultricies enim. Sed cursus volutpat finibus. Morbi at ornare purus. Vivamus congue suscipit dui nec fringilla. Nam auctor velit nec nisi molestie, ut maximus libero euismod. Nam dolor nunc, consequat nec sollicitudin vel, commodo vitae ex.</p>
+                <ul class="special">
+                    <li><i class="fa fa-map-marker"></i><h6>Tourist Attraction:</h6>Sunrise Point of Riverview</li>
+                    <li><i class="fa fa-shopping-cart"></i><h6>Best Buy of this Place:</h6>Handmade Wooden Accessories</li>
+                    <li><i class="fa fa-cutlery"></i><h6>Food Speciality:</h6>Sushie</li>
+                    <li><i class="fa fa-street-view"></i><h6>Activity:</h6>Two Hours Boating Ride</li>
+                </ul><div class="clear"></div>
+                <div class="delight"><i class="fa fa-star"></i> <h6>TOUR DELIGHT : </h6>Dinner with Ice Cream Treat</div>
+            </div>
+            <div class="right placeImg">
+            <img src="images/places/04.jpg" width="800" height="480" alt="Place 4">
+            </div><div class="clear"></div>
+        </div><div class="clear"></div>
+        
+        <!-- ::: Place ::: -->
+        <div class="day">
+            <div class="left placeImg">
+                <img src="images/places/05.jpg" width="800" height="480" alt="Place 5">
+            </div>
+            <div class="right placeInfo">
+                <div class="dayNum abs">DAY 5</div>
+                <h2>Penguin Beach</h2>
+                <span>Province / Penguin City</span>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed scelerisque, purus sit amet elementum blandit, sem arcu egestas quam, eget malesuada sem libero eu ante. Duis nec ultricies enim. Sed cursus volutpat finibus. Morbi at ornare purus. Vivamus congue suscipit dui nec fringilla. Nam auctor velit nec nisi molestie, ut maximus libero euismod. Nam dolor nunc, consequat nec sollicitudin vel, commodo vitae ex.</p>
+                <ul class="special">
+                    <li><i class="fa fa-map-marker"></i><h6>Tourist Attraction:</h6>Sunrise Point of Riverview</li>
+                    <li><i class="fa fa-shopping-cart"></i><h6>Best Buy of this Place:</h6>Handmade Wooden Accessories</li>
+                    <li><i class="fa fa-cutlery"></i><h6>Food Speciality:</h6>Sushie</li>
+                    <li><i class="fa fa-street-view"></i><h6>Activity:</h6>Two Hours Boating Ride</li>
+                </ul><div class="clear"></div>
+                <div class="delight"><i class="fa fa-star"></i> <h6>TOUR DELIGHT : </h6>Dinner with Ice Cream Treat</div>
+            </div><div class="clear"></div>
+        </div><div class="clear"></div>
+        
+    </div><!-- ::: Itinarary end ::: -->
+</section>
+<!-- ::: ITINARARY END ::: -->
+
+<!-- ::: START TESTIMONIALS ::: -->
+<section id="quotes" class="page-block text-center BGlight" style="display:none">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+      <h1 class="text-center wow zoomIn" data-wow-duration="0.50s" data-wow-delay="0.50s"><span>Client</span> Feedback<small>Words from our happy tourist</small></h1>
+          
+      <!-- ::: Testimonial slider Start ::: -->
+      <div id="testimonial" class="carousel slide  wow zoomIn" data-wow-duration="0.65s" data-ride="carousel">
+        <div class="carousel-inner text-center">
+          
+            <div class="item active">
+                <div class="heading"><h4>INCREDIBLE EXPERIENCE</h4></div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit Pellentesque elit tortor, adipiscing vel velit inermentum nulla. Donec in urna semulla facilisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tincidunt tellus vel libero pellentes Proin elit turpis, blandit in libero in</p>
+                <div class="author">
+                   <img class="img-circle img-responsive" src="images/quote/01.jpg" width="65" height="65" alt="" /><h5>Natasha Romonoff <small>Secret Agent</small></h5>
+                </div>
+            </div><!-- end item -->
+            
+             <div class="item ">
+                <div class="heading"><h4>Awesome Places</h4></div>
+                <p> Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam at mauris id massa gravida pulvinar vel Pellentesque elit tortor, adipiscing vel velit inermentum nulla. Donec in urna semulla facilisi. Liquam at mauris id massa gravida pulvinar</p>
+                <div class="author">
+                   <img class="img-circle img-responsive" src="images/quote/02.jpg" width="65" height="65" alt="" /> <h5>Richard Simon <small>CEO at IT Company</small> </h5>
+                </div>
+            </div><!-- end item -->
+            
+            <div class="item ">
+                <div class="heading"><h4>Best Food &amp; place</h4></div>
+                <p>Lliquam at mauris id massa gravida pulvina. Pellentesque elit tortor, adipiscing vel velit inermentum nulla. Donec in urna semulla facilisi.  Interdum et malesuada fames ac ante ipsum primis in faucibus. Aliquam at mauris id massa gravida pulvinar velom.</p>
+                <div class="author">
+                    <img class="img-circle img-responsive" src="images/quote/03.jpg" width="65" height="65" alt="" /> <h5>John Doen <small>CEO at IT Company</small> </h5>
+                </div>
+            </div> <!-- end item -->
+                        
+            <!-- Controls -->
+            <a class="left carousel-control" href="#testimonial" role="button" data-slide="prev">
+            	<img class="svg arrPrime" src="images/svg/arrow-left-s.svg" onerror="this.src='images/svg/arrow-left-s.png'" alt="">
+            </a>
+            <a class="right carousel-control" href="#testimonial" role="button" data-slide="next">
+            	<img class="svg arrPrime" src="images/svg/arrow-right-s.svg" onerror="this.src='images/svg/arrow-right-s.png'" alt="">
+            </a>
+            
+        </div><!-- end carousel-inner -->
+      </div><!-- end testimonial -->
+      </div>
+    </div><!-- end-row -->
+  </div><!-- end-container -->
+</section>
+<!-- ::: END ::: -->
+
+<div class="fotter">
+	 <div class="container">
+		 <h3>143 City Located Hotels World Wide</h3>
+		 <h4>"Hospitality, Quality & Good Locations. We only provide you with the best hotels" - John Deo</h4>
+		 <!--<i class="man"></i>-->
+	 </div>
+</div>
+<!---->
+<div class="fotter-info">
+	  <div class="container">
+	      <div class="col-md-5 details">
+			 <div class="hotel-info">
+				 <h4>ABOUT THIS HOTEL</h4>
+				 <p>Suspendisse erat mi, tincidunt sit amet massa quis, commodo fermentum diam. Sed nec dui nec nunc tempor interdum.</p>
+				 <p>Ut vulputate augue urna, ut porta dolor imperdiet a. Vestibulum nec leo eu magna aliquam ornare.</p>
+			 </div>
+			 <div class="news">
+				 <h4>LATEST NEWS</h4>
+				 <h5>Grand Hotel Joins DeluxelHotels</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Happy Chirstmas To Everyone</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Best Places To Visit 2014</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Various Offers</h5>
+				 <a href="#">15 AUG</a>		
+			 </div>
+				<div class="clearfix"></div>
+		 </div>
+		 <div class="col-md-7 details">
+			 <div class="join">
+				 <h4>JOIN DELUXEHOTELS</h4>
+				 <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus vestibulum blandit egestas. 
+				 Nam id lectus vel orci luctus consectetur eget id elit. In tortor odio, pellentesque eu arcu sit amet, lacinia euismod nisi. Aliquam sodales tristique mauris ac fermentum.
+				 Donec vel varius ipsum. Pellentesque vitae mollis massa. </p>
+				 <p>There is no costs or whatsoever so sign up today!</p>
+				 <a href="#">READ MORE</a>
+			 </div>
+			 <div class="member">
+			 <h4>MEMBERS AREA</h4>
+			 <form>
+			 <p>Username</p>
+			 <input type="text" placeholder="" required/>
+			 <p>Password</p>
+			 <input type="password" placeholder="" required/>		
+			 <input type="submit" value="LOGIN"/>
+			 </form>
+			 </div>
+			 <div class="clearfix"></div>
+		 </div>
+		 <div class="clearfix"></div>
+	  </div>	
+		
+</div>
+<a href="#top" class="top BGprime"><i class="fa fa-angle-up fa-lg"></i></a>
+<!--START SCRIPTS -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+<script src="js/jquery.countdown.js"></script>
+<script src="js/jquery.superslides.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script> 
+<script src="js/wow.min.js"></script>
+<script src="js/placeholders.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/master.js"></script>
+<script>
+	
+  // Full screen Slider
+  $('#slides').superslides({
+	  animation: 'fade',
+	  play: 5000, // slideshow speed keep min 5000
+	  animation_speed: 7000,
+	  pagination: 'false'
+  });
+  
+  // Affix for header
+  var winHieght = $("#slides").outerHeight();
+  var menuHT = $("#home").outerHeight();
+
+
+  // init controller CAR
+  var controller = new ScrollMagic.Controller();
+  var tube = $(".tube").outerHeight();
+  var greyHgt = tube - 150;
+  // create a scene
+  var scene = new ScrollMagic.Scene({triggerElement: "#car", duration: greyHgt})
+  .setPin("#car") // pins the element for the the scene's duration
+  .addTo(controller); // assign the scene to the controller
+</script>
+<!---->
+<script>
+	 $(document).ready(function() {
+		$('#confirmation').click(function() {
+			if($("#userName").val() == "" || $("#email").val() == "" || $("#phone").val() == "" || checkEmail($("#email").val()) == false) {
+				$("#errorContent").css("display","block");
+			} else {
+				$("#errorContent").css("display","none");
+				document.bookingConfirmForm.submit();
+			}
+		});
+		function checkEmail(val) {
+            var regex = /^\s*[A-Z0-9.'_%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*$/i;
+			if(!(regex.test(val))){
+				return false;
+			}
+            return true;
+        }
+	});
+</script>
+
+</body>
+</html>

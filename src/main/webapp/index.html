@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hotel Fortune</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/animate.css" rel='stylesheet' type='text/css' />
+<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jssor.slider-21.1.5.mini.js"></script>
+
+
+
+</head>
+<body>
+ <script>
+        jQuery(document).ready(function ($) {
+            
+            var jssor_1_SlideoTransitions = [
+              [{b:5500,d:3000,o:-1,r:240,e:{r:2}}],
+              [{b:-1,d:1,o:-1,c:{x:51.0,t:-51.0}},{b:0,d:1000,o:1,c:{x:-51.0,t:51.0},e:{o:7,c:{x:7,t:7}}}],
+              [{b:-1,d:1,o:-1,sX:9,sY:9},{b:1000,d:1000,o:1,sX:-9,sY:-9,e:{sX:2,sY:2}}],
+              [{b:-1,d:1,o:-1,r:-180,sX:9,sY:9},{b:2000,d:1000,o:1,r:180,sX:-9,sY:-9,e:{r:2,sX:2,sY:2}}],
+              [{b:-1,d:1,o:-1},{b:3000,d:2000,y:180,o:1,e:{y:16}}],
+              [{b:-1,d:1,o:-1,r:-150},{b:7500,d:1600,o:1,r:150,e:{r:3}}],
+              [{b:10000,d:2000,x:-379,e:{x:7}}],
+              [{b:10000,d:2000,x:-379,e:{x:7}}],
+              [{b:-1,d:1,o:-1,r:288,sX:9,sY:9},{b:9100,d:900,x:-1400,y:-660,o:1,r:-288,sX:-9,sY:-9,e:{r:6}},{b:10000,d:1600,x:-200,o:-1,e:{x:16}}]
+            ];
+            
+            var jssor_1_options = {
+              $AutoPlay: true,
+              $SlideDuration: 800,
+              $SlideEasing: $Jease$.$OutQuint,
+              $CaptionSliderOptions: {
+                $Class: $JssorCaptionSlideo$,
+                $Transitions: jssor_1_SlideoTransitions
+              },
+              $ArrowNavigatorOptions: {
+                $Class: $JssorArrowNavigator$
+              },
+              $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$
+              }
+            };
+            
+            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
+            
+            //responsive code begin
+            //you can remove responsive code if you don't want the slider scales while window resizing
+            function ScaleSlider() {
+                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
+                if (refSize) {
+                    refSize = Math.min(refSize, 1920);
+                    jssor_1_slider.$ScaleWidth(refSize);
+                }
+                else {
+                    window.setTimeout(ScaleSlider, 30);
+                }
+            }
+            ScaleSlider();
+            $(window).bind("load", ScaleSlider);
+            $(window).bind("resize", ScaleSlider);
+            $(window).bind("orientationchange", ScaleSlider);
+            //responsive code end
+        });
+    </script>
+    
+    <script>
+                   var hotelIdList = [];
+                   $(document).ready(function(){
+                      $.ajax({
+                             url : "http://52.76.153.228:8080/AncillaryService/restservice/getHotels",
+                             type : "POST",
+                             data : "",
+                             dataType : "json",
+                             contentType : "application/json"
+                             }).done(
+                                      function(resp) {
+                                    	  var tblRow = '';
+                                    	  for (var key = 0; key < Object.keys(resp).length; key++) {
+                                    		  hotelIdList.push(resp[key].hotelId);
+                                    		  var tblCol = '<div class="col-md-4 wow fadeInLeft" data-wow-delay="0.1s">'+
+                    				   	    	'<div class="living_box">'+
+                    							    '<img src="images/room'+(key+1)+'.jpg" class="img-responsive" alt=""/>'+
+                    								'<div class="living_desc">'+
+                    								'<h3><a href="#">'+resp[key].hotelname +'</a></h3>'+
+                    								'<p>'+resp[key].hotelShortDesc+'</p>'+
+                    								'<form>'+
+                    								'<input type="hidden" name="propertyId" value="'+resp[key].hotelId +'"/>'+
+													'<input type="hidden" name="propertyName" value="'+resp[key].hotelname +'"/>'+
+													'<input type="hidden" name="rate" value="'+resp[key].hotelPrice+'"/>'+
+													'<input type="button" value="Book Now" class="bookNowButton">'+
+													'</form>'+
+													'<p class="price">$'+resp[key].hotelPrice+'</p>'+
+													'</div>'+
+												    '<table border="1" class="propertyDetails" id= "servicesdata'+resp[key].hotelId +'">'+
+									                '<tbody>'+
+										            '</tbody></table>'+
+													'</div>'+
+												    '</div>'+
+									                '';
+									                if((key+1)%3 == 0){
+									                	tblCol = tblCol + '</tr> <tr>';
+									                }
+	                    
+                                              tblRow = tblRow + tblCol;
+                                             
+                     						}
+                                    	  $('#hotelDataNew').append(tblRow);
+//                                           alert(tblRow);
+// 										alert(JSON.stringify(resp));
+                     					
+                                      }                                                                                                              
+                             ).fail  (function(errorThrown) { /* alert("Error"+JSON.stringify(errorThrown)); */ })
+             			    .always(function(d)     { /* alert("complete"); */ })
+             			    
+        });
+                   
+         function getHotelServices() {
+
+        	 //Get Services for hotelId 10001
+             $.ajax({
+                      url : "http://52.76.153.228:8080/AncillaryService/restservice/getServicesOfHotel",
+                      type : "POST",
+                      data : "10001",
+                      dataType : "json",
+                      contentType : "application/json"
+                      }).done(
+                               function(resp) {
+                             	  var tblRow = '<tr>'+
+			                '<td>Additional Services</td>'+
+			                '<td>';
+                             	  for (var key = 0; key < Object.keys(resp).length; key++) {
+                             		  var tblCol = '';
+                             		 if(resp[key].serviceId == '30001'){
+               						   	tblCol = '<i class="fa fa-plane" title="Airport Drop/Pick Up"></i>';
+                               		  }else if(resp[key].serviceId == '30002'){
+                               			  tblCol = '<i class="fa fa-car" title="City Tour"></i>';
+                               		  }else if(resp[key].serviceId == '30003'){
+                               			  tblCol = '<i class="fa fa-cab" title="Hire a Taxi"></i>';
+                               		  }else if(resp[key].serviceId == '30004'){
+                               			tblCol = '<i class="fa fa-file-movie-o" title="Movies"></i>';
+                               		  }else if(resp[key].serviceId == '30005'){
+                               			  tblCol = '<i class="fa fa-cutlery" title="Welcome Meals"></i>';
+                               		  }
+              
+                                       tblRow = tblRow + tblCol;
+                                      
+              						}
+                             	  tblRow = tblRow + '</td> </tr>';
+								  $("#servicesdata10001 tbody").html("");
+                             	  $(tblRow).appendTo("#servicesdata10001 tbody");
+//                                    alert(JSON.stringify(resp));
+                               }                                                                                                              
+                      ).fail  (function(errorThrown) { alert("Error"+JSON.stringify(errorThrown)); })
+      			    .always(function(d)     { /* alert("complete"); */ })
+      			    
+      			    //Get Services for hotelId 10002
+      			    $.ajax({
+                      url : "http://52.76.153.228:8080/AncillaryService/restservice/getServicesOfHotel",
+                      type : "POST",
+                      data : "10002",
+                      dataType : "json",
+                      contentType : "application/json"
+                      }).done(
+                               function(resp) {
+                             	  var tblRow = '<tr>'+
+			                '<td>Additional Services</td>'+
+			                '<td>';
+                             	  for (var key = 0; key < Object.keys(resp).length; key++) {
+                             		  var tblCol = '';
+                             		 if(resp[key].serviceId == '30001'){
+                						   	tblCol = '<i class="fa fa-plane" title="Airport Drop/Pick Up"></i>';
+                                		  }else if(resp[key].serviceId == '30002'){
+                                			  tblCol = '<i class="fa fa-car" title="City Tour"></i>';
+                                		  }else if(resp[key].serviceId == '30003'){
+                                			  tblCol = '<i class="fa fa-cab" title="Hire a Taxi"></i>';
+                                		  }else if(resp[key].serviceId == '30004'){
+                                			tblCol = '<i class="fa fa-file-movie-o" title="Movies"></i>';
+                                		  }else if(resp[key].serviceId == '30005'){
+                                			  tblCol = '<i class="fa fa-cutlery" title="Welcome Meals"></i>';
+                                		  }
+              
+                                       tblRow = tblRow + tblCol;
+                                      
+              						}
+                             	  tblRow = tblRow + '</td> </tr>';
+								  $("#servicesdata10002 tbody").html("");
+                             	  $(tblRow).appendTo("#servicesdata10002 tbody");
+//                                    alert(JSON.stringify(resp));
+                               }                                                                                                              
+                      ).fail  (function(errorThrown) { alert("Error"+JSON.stringify(errorThrown)); })
+      			    .always(function(d)     { /* alert("complete"); */ })
+      			    
+      			    //Get Services for hotelId 10003
+      			    $.ajax({
+                      url : "http://52.76.153.228:8080/AncillaryService/restservice/getServicesOfHotel",
+                      type : "POST",
+                      data : "10003",
+                      dataType : "json",
+                      contentType : "application/json"
+                      }).done(
+                               function(resp) {
+                             	  var tblRow = '<tr>'+
+			                '<td>Additional Services</td>'+
+			                '<td>';
+                             	  for (var key = 0; key < Object.keys(resp).length; key++) {
+                             		  var tblCol = '';
+                             		 if(resp[key].serviceId == '30001'){
+                						   	tblCol = '<i class="fa fa-plane" title="Airport Drop/Pick Up"></i>';
+                                		  }else if(resp[key].serviceId == '30002'){
+                                			  tblCol = '<i class="fa fa-car" title="City Tour"></i>';
+                                		  }else if(resp[key].serviceId == '30003'){
+                                			  tblCol = '<i class="fa fa-cab" title="Hire a Taxi"></i>';
+                                		  }else if(resp[key].serviceId == '30004'){
+                                			tblCol = '<i class="fa fa-file-movie-o" title="Movies"></i>';
+                                		  }else if(resp[key].serviceId == '30005'){
+                                			  tblCol = '<i class="fa fa-cutlery" title="Welcome Meals"></i>';
+                                		  }
+              
+                                       tblRow = tblRow + tblCol;
+                                      
+              						}
+                             	  tblRow = tblRow + '</td> </tr>';
+								  $("#servicesdata10003 tbody").html("");
+                             	  $(tblRow).appendTo("#servicesdata10003 tbody");
+//                                    alert(JSON.stringify(resp));
+                               }                                                                                                              
+                      ).fail  (function(errorThrown) { alert("Error"+JSON.stringify(errorThrown)); })
+      			    .always(function(d)     { /* alert("complete"); */ })
+            
+          	}
+    </script>
+    
+    
+<!--header starts-->
+<div class="header">
+	 <div class="top-header">
+		 <div class="container">
+			 <div class="logo">
+				 	<a href="index.html"><img src="images/logo.png"/></a>
+			 </div>
+			 <span class="menu"> </span>
+			 <div class="m-clear"></div>
+			 <div class="top-menu">
+				<ul>
+					 <li class="active"><a href="index.html">HOME</a></li>
+					 <li><a class="scroll" href="facilities.html">FACILITIES</a></li>
+					 <li><a class="scroll" href="restaurant.html">RESTAURANT</a></li>
+					<li><a class="scroll" href="report.html">REPORT</a></li>
+					 <li><a class="scroll" href="contact.html">CONTACT US</a></li>
+				</ul>
+				<script>
+					$("span.menu").click(function(){
+						$(".top-menu ul").slideToggle(200);
+					});
+				</script>
+			 </div>
+			 <div class="clearfix"></div>
+		  </div>
+	  </div>
+	  <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 1300px; height: 400px; overflow: hidden; visibility: hidden;">
+        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 400px; overflow: hidden;">
+            <div data-p="225.00" style="display: none;">
+                <img data-u="image" src="images/8.jpg" />
+            </div>
+            <div data-p="225.00" style="display: none;">
+                <img data-u="image" src="images/5.jpg" />
+            </div>
+            <div data-p="225.00" data-po="80% 55%" style="display: none;">
+                <img data-u="image" src="images/7.jpg" />
+            </div>
+        
+        </div>
+       
+        <!-- Arrow Navigator -->
+        <span data-u="arrowleft" class="jssora22l" style="top:0px;left:12px;width:40px;height:58px;z-index:99" data-autocenter="2"></span>
+        <span data-u="arrowright" class="jssora22r" style="top:0px;right:12px;width:40px;height:58px;z-index:99" data-autocenter="2"></span>
+		
+		<div class="banner-info text-center">
+			<h1>HOTEL FORTUNE</h1>
+			<span></span>
+			<ul>
+			 <li><a class="scroll" href="#">HOTEL</a><i class="line"></i></li>
+			 <li><a class="scroll" href="#">GRANDEUR</a><i class="line2"></i></li>
+			 <li><a class="scroll" href="#">GRACE</a></li>
+			 <div class="clearfix"></div>
+			</ul>
+			</div>
+    </div>
+			
+</div>
+<!---strat-date-piker---->
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<script src="js/jquery-ui.js"></script>
+		  <script>
+				  $(function() {
+				    $( "#datepicker" ).datepicker({
+						minDate: 0,
+						onSelect: function( selectedDate ) {
+							$( "#datepicker1" ).datepicker( "option", "minDate", selectedDate );
+					  }
+					});
+					$( "#datepicker1" ).datepicker({
+						minDate: 0
+					});
+				  });
+		  </script>
+<!---/End-date-piker---->
+
+<div class="online_reservation">
+		   <div class="b_room">
+			  <div class="booking_room">
+				<form name="searchForm">
+				  <div class="reservation">
+				  <div id="errorMsg">All fields are mandatory</div>
+				  <div id="errorMsg1">Please enter valid dates</div>
+					  <ul>				
+						 <li  class="span1_of_1 left">
+							 <h5>Arrival</h5>
+							 <div class="book_date">
+								
+								 <input class="date" id="datepicker" name="checkIn" type="text" value="MM/DD/YYYY" onfocus="this.value = '';">
+								
+							 </div>					
+						 </li>
+						 <li  class="span1_of_1 left">
+							 <h5>Departure</h5>
+							 <div class="book_date">
+							 
+								<input class="date" id="datepicker1" name="checkOut" type="text" value="MM/DD/YYYY" onfocus="this.value = '';">
+							
+						     </div>		
+						 </li>
+						 <li class="span1_of_1">
+							 <h5>Destination</h5>
+							 <!----------start section_room----------->
+							 <div class="section_room">
+							      <select id="destination" class="frm-field required">
+										<option value="null">Select a destination</option>
+										<option value="New York">New York</option>
+										<option value="California">California</option>         
+										<option value="India">India</option>
+							      </select>
+							 </div>	
+						 </li>
+						 <li class="span1_of_3">
+								<div class="date_btn">
+										<input type="button" value="Search" id="searchButton" onclick="getHotelServices()"/>
+<!-- 										<input type="button" value="testing" onclick="getHotels()" id="testing"/> -->
+								</div>
+						 </li>
+						 <div class="clearfix"></div>
+					 </ul>
+				 </div>
+				 
+				 </form>
+			  </div>
+				<div class="clearfix"></div>
+		  </div>
+	  </div>
+</div>
+<!---->
+<div id="searchResults" class="text-center">
+	 <div class="container">
+		 <h4>Search Results</h4>
+		 <div id="hotelDataNew">
+			 <!-- <div class="col-md-4 wow fadeInLeft" data-wow-delay="0.1s" style="width:100%">
+	   	    	<div class="living_box">
+				    <img src="images/room1.jpg" class="img-responsive" alt=""/>
+					
+					<div class="living_desc">
+					<h3><a href="#">Property1</a></h3>
+					<p>Lorem ipsum consectetuer adipiscing </p>
+					<form>
+						<input type="hidden" name="propertyName" value="Property1"/>
+						<input type="hidden" name="rate" value="100.00"/>
+						<input type="button" value="Book Now" class="bookNowButton">
+					</form>
+					<p class="price">$100.00</p>
+					</div>
+				    <table border="1" class="propertyDetails">
+	                <tbody><tr>
+	                   <td>Services</td>
+	                   <td><i class="fa fa-car"></i> <i class="fa fa-plus"></i> <i class="fa fa-plane"></i> <i class="fa fa-plus"></i> <i class="fa fa-cutlery"></i></td>
+	                    </tr>
+	                </tbody></table>
+				</div>
+			 </div>
+   	     <div class="col-md-4 wow fadeInLeft" data-wow-delay="0.1s"  style="width:100%">
+   	     	<div class="living_box">
+			    <img src="images/room2.jpg" class="img-responsive" alt=""/>
+				
+				<div class="living_desc">
+				<h3><a href="#">Property2</a></h3>
+				<p>Lorem ipsum consectetuer adipiscing </p>
+				<form>
+					<input type="hidden" name="propertyName" value="Property2"/>
+					<input type="hidden" name="rate" value="89.00"/>
+					<input type="button" value="Book Now" class="bookNowButton">
+				</form>
+				<p class="price rate_2">$89.00</p>
+				</div>
+			    <table border="1" class="propertyDetails">
+                <tbody><tr>
+                   <td>Services</td>
+                   <td><i class="fa fa-car"></i> <i class="fa fa-plus"></i> <i class="fa fa-cutlery"></i></td>
+                    </tr>
+                </tbody></table>
+			</div>
+   	     </div>
+   	     <div class="col-md-4 wow fadeInLeft" data-wow-delay="0.1s" style="width:100%">
+   	     	<div class="living_box">
+			    <img src="images/room3.jpg" class="img-responsive" alt=""/>
+				
+				<div class="living_desc">
+				<h3><a href="#">Property3</a></h3>
+				<p>Lorem ipsum consectetuer adipiscing </p>
+				<form>
+					<input type="hidden" name="propertyName" value="Property3"/>
+					<input type="hidden" name="rate" value="100.00"/>
+					<input type="button" value="Book Now" class="bookNowButton">
+				</form>
+				<p class="price">$100.00</p>
+				</div>
+			    <table border="1" class="propertyDetails">
+                <tbody><tr>
+                  <td>Services</td>
+                   <td><i class="fa fa-car"></i> <i class="fa fa-plus"></i> <i class="fa fa-train"></i> <i class="fa fa-plus"></i> <i class="fa fa-cutlery"></i></td>
+                    </tr>
+                </tbody></table>
+			</div>
+   	      </div> -->
+			
+	 </div>
+</div>
+</div>
+<!---->
+<!--<div class="package text-center">
+	 <div class="container">
+		 
+		  
+	 </div>
+</div>-->
+<!---->
+
+<div class="fotter">
+	 <div class="container">
+		 <h3>143 City Located Hotels World Wide</h3>
+		 <h4>"Hospitality, Quality & Good Locations. We only provide you with the best hotels" - John Deo</h4>
+		 <!--<i class="man"></i>-->
+	 </div>
+</div>
+<!---->
+<div class="fotter-info">
+	  <div class="container">
+	      <div class="col-md-5 details">
+			 <div class="hotel-info">
+				 <h4>ABOUT THIS HOTEL</h4>
+				 <p>Suspendisse erat mi, tincidunt sit amet massa quis, commodo fermentum diam. Sed nec dui nec nunc tempor interdum.</p>
+				 <p>Ut vulputate augue urna, ut porta dolor imperdiet a. Vestibulum nec leo eu magna aliquam ornare.</p>
+			 </div>
+			 <div class="news">
+				 <h4>LATEST NEWS</h4>
+				 <h5>Grand Hotel Joins DeluxelHotels</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Happy Chirstmas To Everyone</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Best Places To Visit 2014</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Various Offers</h5>
+				 <a href="#">15 AUG</a>		
+			 </div>
+				<div class="clearfix"></div>
+		 </div>
+		 <div class="col-md-7 details">
+			 <div class="join">
+				 <h4>JOIN DELUXEHOTELS</h4>
+				 <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus vestibulum blandit egestas. 
+				 Nam id lectus vel orci luctus consectetur eget id elit. In tortor odio, pellentesque eu arcu sit amet, lacinia euismod nisi. Aliquam sodales tristique mauris ac fermentum.
+				 Donec vel varius ipsum. Pellentesque vitae mollis massa. </p>
+				 <p>There is no costs or whatsoever so sign up today!</p>
+				 <a href="#">READ MORE</a>
+			 </div>
+			 <!--<div class="member">
+			 <h4>MEMBERS AREA</h4>
+			 <form>
+			 <p>Username</p>
+			 <input type="text" placeholder="" required/>
+			 <p>Password</p>
+			 <input type="password" placeholder="" required/>		
+			 <input type="submit" value="LOGIN"/>
+			 </form>
+			 </div>-->
+			 <div class="clearfix"></div>
+		 </div>
+		 <div class="clearfix"></div>
+	  </div>
+	 
+</div>
+<!---->
+<script>
+	 $(document).ready(function() {
+		$('#searchButton').click(function() {
+			$("#errorMsg").css("display","none");
+			$("#errorMsg1").css("display","none");
+			if($("#datepicker").val() == "" || $("#datepicker").val() == "MM/DD/YYYY" || $("#datepicker1").val() == "MM/DD/YYYY" || $("#datepicker1").val() == "" || $("#destination").val() == 'null') {
+				$("#errorMsg").css("display","block");
+				$("#searchResults").hide(); 
+			} else if($("#datepicker").val() == $("#datepicker1").val()) {
+				$("#errorMsg1").css("display","block");
+				$("#searchResults").hide(); 
+			} else {
+				$("#searchResults").show(); 
+				window.scrollTo(0, $("#searchResults").offset().top);
+			}
+		});
+		$(document).on('click', '.bookNowButton', function(){
+			var cityObj = encodeURIComponent($("#destination option:selected").val());
+			window.location.href = 'booking.html?property='+this.form.propertyName.value+'&propertyId='+this.form.propertyId.value+'&checkIn='+document.searchForm.checkIn.value+'&checkOut='+document.searchForm.checkOut.value+'&rate='+this.form.rate.value+'&city='+cityObj;
+		});
+// 		 $('#testing').click(function() {
+			/*   $.ajax({url:"/Hackathon2016AncillaryServices/getHotelList",
+				type : "GET",
+				dataType : "json",
+				contentType : "application/json"
+				})
+				.done  (function(data)        { alert("Success: " + JSON.stringify(response)) ; })
+				.fail  (function(errorThrown) { alert("Error"+JSON.stringify(errorThrown))   ; })
+			    .always(function(d)     { alert("complete"); 
+			    });
+ */
+				/*  try{		
+				 $.post('/Hackathon2016AncillaryServices/getHotelList',{},function(response){
+					 console.log(response);
+					 alert(JSON.stringify(response));
+					 var resp = JSON.stringify(response);
+					 var obj = JSON.parse(response);
+					 
+					 for (var key in obj) {
+						  if (obj.hasOwnProperty(key)) {
+						    var val = obj[key];
+						    alert(obj[key].hotelId+' '+obj[key].hotelname+' '
+									 +obj[key].hotelCity+' '+obj[key].hotelCountry+' '
+									 +obj[key].hotelShortDesc);
+						    alert(val.hotelId+' '+val.hotelname+' '
+									 +val.hotelCity+' '+val.hotelCountry+' '
+									 +val.hotelShortDesc);
+						  }
+						}
+					 
+				 });
+					}
+				 catch(ex){
+					 alert(ex);
+				 } */
+ /*$.ajax({
+	            url: 'http://52.34.3.133:9080/AncillaryService/restservice/getHotels', //PHP webservice url
+	            type: 'json', //Post Method call
+	            timeout: 80000,
+	            success: function (result) {
+	                flagOpen = 0;
+	                var parseJson = $.parseJSON(result);
+	                if (parseJson['status'] == true)
+	                {
+	                }
+
+	            },
+	            error: function (statusCode, errorThrown) {
+	                alert("You have gone offline! "+statusCode);
+	            }
+	        }); */
+// 		}); 
+	});
+</script>
+</body>
+</html>

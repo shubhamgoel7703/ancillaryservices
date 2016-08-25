@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<title>Hotel Fortune</title>
+<meta name="description" content="Welcome to Travelers Landing Page Template">
+<meta name="keywords" content="traveler, travel, tour, vacation, beach, nature, place, world, back pack, ticket, event, visa, travel, tourism, green">
+<meta name="author" content="Saptarang">
+
+<!-- Mobile Specific Meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- Google Font Code -->
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&amp;subset=latin,greek,greek-ext,vietnamese,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
+<script src="js/jquery.min.js"></script>
+
+
+
+<!-- Stylesheets -->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="css/owl.carousel.css">
+<link rel="stylesheet" href="css/prettyPhoto.css">
+<link rel="stylesheet" href="css/servicesStyle.css" />
+<link rel="stylesheet" href="css/color-blue.css" />
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script src="js/jquery-ui.js"></script>
+
+<script src="js/modernizr.custom.js"></script>
+
+<script>
+ //GetServiceOfHotel
+ var checkInDate = "";
+ var checkOutDate = "";
+ var reservationId = "";
+var serviceIDArr = [];
+var dateArr = [];
+var rateArr = [];
+ $(function() {
+	$.ajax({
+		url : "http://52.76.153.228:8080/AncillaryService/restservice/getSummaryForResv",
+		type : "POST",
+
+		data : localStorage.getItem('reservationNum'),
+		dataType : "json",
+		contentType : "application/json"
+		}).done(
+			function(data) {
+				 // var parseJsonServicesData = JSON.stringify(data);
+				 for (i=0;i<1;i++){	 
+					$('#contentBefore').find('.confirmationNumber').html(data.reservationDto.reservationId);	  
+					$('#contentBefore').find('.totalCost').html('USD $'+data.reservationDto.resvPrice);	  
+					$('#contentAfter').find('.confirmationNumber').html(data.reservationDto.reservationId);	  
+					$('#contentAfter').find('.totalCost').html('USD $'+data.totalCost);
+					checkInDate = data.reservationDto.checkInDate;
+					checkOutDate = data.reservationDto.checkOutDate;
+
+				}    
+		});
+	getServices( localStorage.getItem('hotelId'));
+	
+function getServices(hotelId) {
+	
+	$.ajax({
+		url : "http://52.76.153.228:8080/AncillaryService/restservice/getServicesOfHotel/",
+		type : "POST",
+
+		data : localStorage.getItem('hotelId'),
+		dataType : "json",
+		contentType : "application/json"
+		}).done(
+			function(data) {
+			 // var parseJsonServicesData = JSON.stringify(data);
+			 for (i=0;i<data.length;i++){				
+				if (data[i].serviceType == "Transport"){
+				$('#hotelServices').append('<div class="item"><div class="item-header"><i class="fa fa-cab"></i><h5>'+ data[i].serviceName + '<small>' + data[i].serviceDesc + '</small></h5></div><div class="item-info"><img class="img-responsive" src="images/carTaxi.jpg" alt=""><div class="info"><h5 class="prime">SpiceHub</h5><p></p><a href="#" title=""><i class="fa fa-globe"></i> www.grandhotelinparis.com</a></div></div><input type="button" class="moreDetails" value="More Details"/><div class="addServicePopup"><div class="closePopup"></div><h5 class="serviceName">'+ data[i].serviceName + '</h5><h6>Rate: <span class="rate">USD $' + data[i].servicePrice +'</span></h6><input class="hiddenRate" type="hidden" value="'+data[i].servicePrice+'"><input class="hiddenID" type="hidden" value="'+data[i].serviceId+'"><div class="errorVal">Please select a date</div><div class="dateBlock"><p>Select a date to avail the service</p><input class="date" name="serviceDatepicker" type="text" value="MM/DD/YYYY"></div><input type="button" value="Add to cart" class="addToCart"></div></div>');
+				}
+				else if(data[i].serviceType == "Travel"){
+				$('#hotelServices').append('<div class="item"><div class="item-header"><i class="fa fa-car"></i><h5>'+ data[i].serviceName + '<small>' + data[i].serviceDesc + '</small></h5></div><div class="item-info"><img class="img-responsive" src="images/safari.jpg" alt=""><div class="info"><h5 class="prime">SpiceHub</h5><p></p><a href="#" title=""><i class="fa fa-globe"></i> www.grandhotelinparis.com</a></div></div><input type="button" class="moreDetails" value="More Details"/><div class="addServicePopup"><div class="closePopup"></div><h5 class="serviceName">'+ data[i].serviceName + '</h5><h6>Rate: <span class="rate">USD $' + data[i].servicePrice +'</span></h6><input class="hiddenRate" type="hidden" value="'+data[i].servicePrice+'"><input class="hiddenID" type="hidden" value="'+data[i].serviceId+'"><div class="errorVal">Please select a date</div><div class="dateBlock"><p>Select a date to avail the service</p><input class="date" name="serviceDatepicker" type="text" value="MM/DD/YYYY"></div><input type="button" value="Add to cart" class="addToCart"></div></div>');
+				
+				}
+				else{
+				$('#hotelServices').append('<div class="item"><div class="item-header"><i class="fa fa-tripadvisor"></i><h5>'+ data[i].serviceName + '<small>' + data[i].serviceDesc + '</small></h5></div><div class="item-info"><img class="img-responsive" src="images/entertainment.jpg" alt=""><div class="info"><h5 class="prime">SpiceHub</h5><p></p><a href="#" title=""><i class="fa fa-globe"></i> www.grandhotelinparis.com</a></div></div><input type="button" class="moreDetails" value="More Details"/><div class="addServicePopup"><div class="closePopup"></div><h5 class="serviceName">'+ data[i].serviceName + '</h5><h6>Rate: <span class="rate">USD $' + data[i].servicePrice +'</span></h6><input class="hiddenRate" type="hidden" value="'+data[i].servicePrice+'"><input class="hiddenID" type="hidden" value="'+data[i].serviceId+'"><div class="errorVal">Please select a date</div><div class="dateBlock"><p>Select a date to avail the service</p><input class="date" name="serviceDatepicker" type="text" value="MM/DD/YYYY"></div><input type="button" value="Add to cart" class="addToCart"></div></div>');
+				
+				}
+			}    
+		});
+	getRecommendations();
+}
+
+function getRecommendations(){
+	$.ajax({
+		url : "http://52.76.153.228:8080/AncillaryService/restservice/getRecommendedServices/",
+		type : "POST",
+
+		data : localStorage.getItem('guestEmail'),
+		dataType : "json",
+		contentType : "application/json"
+		}).done(
+			function(data) {
+			 // var parseJsonServicesData = JSON.stringify(data);
+			if(data.length==0)
+				$('#recommendedSrvcs').hide();
+			 for (i=0;i<data.length;i++){
+			 if (data[i].serviceType == "Transport"){
+				$('#recommendedServices').append('<div class="item"><div class="item-header"><i class="fa fa-car"></i><h5>'+ data[i].serviceName + '<small>' + data[i].serviceDesc + '</small></h5></div><div class="item-info"><img class="img-responsive" src="images/carTaxi.jpg" alt=""><div class="info"><h5 class="prime">SpiceHub</h5><p></p><a href="#" title=""><i class="fa fa-globe"></i> www.grandhotelinparis.com</a></div></div><input type="button" class="moreDetails" value="More Details"/><div class="addServicePopup"><div class="closePopup"></div><h5 class="serviceName">'+ data[i].serviceName + '</h5><h6>Rate: <span class="rate">USD' + data[i].servicePrice +'</span></h6><input class="hiddenRate" type="hidden" value="200"><div class="errorVal">Please select a date</div><div class="dateBlock"><p>Select a date to avail the service</p><input class="date" name="serviceDatepicker" type="text" value="MM/DD/YYYY"></div><input type="button" value="Add to cart" class="addToCart"></div></div>');
+			}
+			else if(data[i].serviceType == "Travel"){
+			$('#recommendedServices').append('<div class="item"><div class="item-header"><i class="fa fa-car"></i><h5>'+ data[i].serviceName + '<small>' + data[i].serviceDesc + '</small></h5></div><div class="item-info"><img class="img-responsive" src="images/newyork.PNG" alt=""><div class="info"><h5 class="prime">SpiceHub</h5><p></p><a href="#" title=""><i class="fa fa-globe"></i> www.grandhotelinparis.com</a></div></div><input type="button" class="moreDetails" value="More Details"/><div class="addServicePopup"><div class="closePopup"></div><h5 class="serviceName">'+ data[i].serviceName + '</h5><h6>Rate: <span class="rate">USD' + data[i].servicePrice +'</span></h6><input class="hiddenRate" type="hidden" value="200"><div class="errorVal">Please select a date</div><div class="dateBlock"><p>Select a date to avail the service</p><input class="date" name="serviceDatepicker" type="text" value="MM/DD/YYYY"></div><input type="button" value="Add to cart" class="addToCart"></div></div>');
+			
+			}
+			else{
+			$('#recommendedServices').append('<div class="item"><div class="item-header"><i class="fa fa-tripadvisor"></i><h5>'+ data[i].serviceName + '<small>' + data[i].serviceDesc + '</small></h5></div><div class="item-info"><img class="img-responsive" src="images/entertainment.jpg" alt=""><div class="info"><h5 class="prime">SpiceHub</h5><p></p><a href="#" title=""><i class="fa fa-globe"></i> www.grandhotelinparis.com</a></div></div><input type="button" class="moreDetails" value="More Details"/><div class="addServicePopup"><div class="closePopup"></div><h5 class="serviceName">'+ data[i].serviceName + '</h5><h6>Rate: <span class="rate">USD' + data[i].servicePrice +'</span></h6><input class="hiddenRate" type="hidden" value="200"><div class="errorVal">Please select a date</div><div class="dateBlock"><p>Select a date to avail the service</p><input class="date" name="serviceDatepicker" type="text" value="MM/DD/YYYY"></div><input type="button" value="Add to cart" class="addToCart"></div></div>');
+			
+			}
+			
+			}
+		});
+}
+		
+	
+
+});
+</script>
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+
+<body id="top">
+<div id="wait_mask" class="mask"> </div>
+<!--header starts-->
+<div class="header">
+	 <div class="top-header">
+		 <div class="container">
+			 <div class="logo">
+				 <a href="index.html"><img src="images/logo.png"/></a>
+			 <div class="clearfix"></div>
+			 </div>
+			 <span class="menu"> </span>
+			 <div class="m-clear"></div>
+			 <div class="top-menu">
+			     <ul>
+					 <li><a href="index.html">HOME</a></li>
+					 <li><a href="facilities.html">FACILITIES</a></li>
+					 <li><a href="restaurant.html">RESTAURANT</a></li>
+					 <li><a  href="contact.html">CONTACT US</a></li>
+						<div class="clearfix"></div>
+				 </ul>
+				 <script>
+					$("span.menu").click(function(){
+						$(".top-menu ul").slideToggle(200);
+					});
+					
+					
+				</script>
+			 </div>
+		  </div>
+	  </div>
+</div>
+
+<!--  :::  DESTINATION INFO ::: -->
+<section class="page-block BGlight destination">
+  <div class="container">
+  <div class="additional-info" style="border:none; margin-top:0">
+           
+            <div class="col-sm-12 col-xs-12">
+				<div id="contentBefore">
+					<p><strong>Thank you. Your reservation is now confirmed.</strong></p>
+					<p><strong>Confirmation Number: <span class="confirmationNumber"></span></strong></p>
+					<p><strong>Total Cost: <span class="totalCost"></span></strong></p>
+				</div>
+				<div id="contentAfter">
+					<p><strong>Thank you. Your reservation is now updated with the services.</strong></p>
+					<p><strong>Confirmation Number: <span class="confirmationNumber"></span></strong></p>
+					<p><strong>Total Cost: <span class="totalCost"></span></strong></p>
+					<a href="summary.html"><input type="button" value="View Details"></a>
+				</div>
+             </div> 
+           <div class="clear"></div>
+        </div><!-- ::: Additional info end ::: -->
+
+  </div>
+</section>
+<!-- ::: END ::: -->
+
+<!--  :::  MOBILE SUBSCRIBE FORM ::: -->
+<div id="hidCon" class="BGdark" style="display:none">
+	<h4 class="text-center visible-xs">Subscribe for update</h4>
+</div>
+<!-- ::: MOBILE SUBSCRIBE FORM END ::: -->
+
+<!--  :::  TRAVEL INFO ::: -->
+<section id="travelInfo" class="">
+	<div class="col-md-12 wow zoomIn" data-wow-delay="0.20s" data-wow-duration="0.20s">
+		<h1 class="text-center">Choose your Services</h1>
+		<div class="container">
+			<div id="cart">
+				<span class="serviceCount">0</span>
+				<i class="fa fa-shopping-cart"></i>
+			</div>
+		</div>
+		<div id="cartContainer">
+			<div class="closePopup"></div>
+			<div class="contentBlock"></div>
+			<div class="bottomContent">
+				<div id="totalRate"></div>
+				<div id="confirm"><input type="button" value="Confirm" id="confirmResButton" class="confirmButton" disabled></div>
+			</div>
+		</div>
+	</div>
+  <div class="page-block-large">
+  
+    <div class="container">
+		
+	  <div class="row">
+		<div class="itineraryBlock" data-count="1">
+			<div class="leftContent"><i class="fa fa-cab"></i><h5>Hotel services</h5></div>
+			<div class="rightContent"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></div>
+		</div>
+      
+          <!-- ::: Owl Carousel Start ::: -->
+          <div class="owl-demo" id="hotelServices">
+          
+          <!-- ::: Start item ::: -->
+          
+          
+			
+			
+			
+			
+		     
+            
+
+        </div><!-- ::: end OWL Carousel ::: -->
+      </div>
+	  <div class="row" id="recommendedSrvcs">
+		<div class="itineraryBlock" data-count="2">
+			<div class="leftContent"><i class="fa fa-tripadvisor"></i><h5>Recommended services</h5></div>
+			<div class="rightContent"><i class="fa fa-plus"></i><i class="fa fa-minus"></i></div>
+		</div>
+          <!-- ::: Owl Carousel Start ::: -->
+          <div class="owl-demo" id="recommendedServices">
+          
+          <!-- ::: Start item ::: -->
+           
+
+            
+           
+            
+           
+  
+            
+        </div><!-- ::: end OWL Carousel ::: -->
+      </div>
+	  
+	 
+   </div>
+  </div>
+</section>
+<!-- ::: END ::: -->
+
+
+<div class="fotter">
+	 <div class="container">
+		 <h3>143 City Located Hotels World Wide</h3>
+		 <h4>"Hospitality, Quality & Good Locations. We only provide you with the best hotels" - John Deo</h4>
+		 <!--<i class="man"></i>-->
+	 </div>
+</div>
+<!---->
+<div class="fotter-info">
+	  <div class="container">
+	      <div class="col-md-5 details">
+			 <div class="hotel-info">
+				 <h4>ABOUT THIS HOTEL</h4>
+				 <p>Suspendisse erat mi, tincidunt sit amet massa quis, commodo fermentum diam. Sed nec dui nec nunc tempor interdum.</p>
+				 <p>Ut vulputate augue urna, ut porta dolor imperdiet a. Vestibulum nec leo eu magna aliquam ornare.</p>
+			 </div>
+			 <div class="news">
+				 <h4>LATEST NEWS</h4>
+				 <h5>Grand Hotel Joins DeluxelHotels</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Happy Chirstmas To Everyone</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Best Places To Visit 2014</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Various Offers</h5>
+				 <a href="#">15 AUG</a>		
+			 </div>
+				<div class="clearfix"></div>
+		 </div>
+		 <div class="col-md-7 details">
+			 <div class="join">
+				 <h4>JOIN DELUXEHOTELS</h4>
+				 <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus vestibulum blandit egestas. 
+				 Nam id lectus vel orci luctus consectetur eget id elit. In tortor odio, pellentesque eu arcu sit amet, lacinia euismod nisi. Aliquam sodales tristique mauris ac fermentum.
+				 Donec vel varius ipsum. Pellentesque vitae mollis massa. </p>
+				 <p>There is no costs or whatsoever so sign up today!</p>
+				 <a href="#">READ MORE</a>
+			 </div>
+			 <div class="member">
+			 <h4>MEMBERS AREA</h4>
+			 <form>
+			 <p>Username</p>
+			 <input type="text" placeholder="" required/>
+			 <p>Password</p>
+			 <input type="password" placeholder="" required/>		
+			 <input type="submit" value="LOGIN"/>
+			 </form>
+			 </div>
+			 <div class="clearfix"></div>
+		 </div>
+		 <div class="clearfix"></div>
+	  </div>
+	 
+</div>
+<!---->
+<!-- ::: END ::: -->
+
+
+
+<a href="#top" class="top BGprime"><i class="fa fa-angle-up fa-lg"></i></a>
+<!--START SCRIPTS -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
+<script src="js/jquery.countdown.js"></script>
+<script src="js/jquery.superslides.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script> 
+<script src="js/wow.min.js"></script>
+<script src="js/placeholders.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="js/master.js"></script>
+<script>
+	
+  // Full screen Slider
+  $('#slides').superslides({
+	  animation: 'fade',
+	  play: 5000, // slideshow speed keep min 5000
+	  animation_speed: 7000,
+	  pagination: 'false'
+  });
+  
+  // Affix for header
+  var winHieght = $("#slides").outerHeight();
+  var menuHT = $("#home").outerHeight();
+  $('#home').affix({
+    offset: {
+      top: winHieght-menuHT,
+      bottom: function () {
+        return (this.bottom = $('.footer').outerHeight(true))
+      }
+    }
+  })
+
+  // init controller CAR
+  var controller = new ScrollMagic.Controller();
+  var tube = $(".tube").outerHeight();
+  var greyHgt = tube - 150;
+  // create a scene
+  var scene = new ScrollMagic.Scene({triggerElement: "#car", duration: greyHgt})
+  .setPin("#car") // pins the element for the the scene's duration
+  .addTo(controller); // assign the scene to the controller
+</script>
+ <script>
+	  $(function() {
+	  
+		function getUrlVars() {
+			var vars = {};
+			var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			vars[key] = value;
+			});
+			return vars;
+		}
+		
+		if(getUrlVars()["services"] == 'true') {
+			$('#contentBefore').hide();
+			$('#contentAfter').show();
+		} else {
+			$('#contentBefore').show();
+			$('#contentAfter').hide();
+		}
+			
+	
+		
+		$(".closePopup").click(function() {
+			$(this).parent().hide();
+			$("#wait_mask").hide();
+		});
+		$('#hotelServices,#recommendedServices').on('click', '.closePopup', function() {
+			$(this).parent().hide();
+			$("#wait_mask").hide();
+		});
+		$("#cart").click(function() {
+			$("#wait_mask").show();
+			$("#cartContainer").show();
+		});
+		
+		$('#hotelServices,#recommendedServices').on('click', '.moreDetails', function() {
+			$(this).parent().find('.addServicePopup').show();
+			$( ".date" ).datepicker({
+			minDate: checkInDate,
+			maxDate: checkOutDate,
+			defaultDate: checkInDate
+		});
+		});
+		function getTotalRate() {
+			var obj = $('#cartContainer .serviceHiddenRate');
+			var rate = 0;
+			$(obj).each(function() {
+				rate = parseInt(rate) + parseInt($(this).val());
+			});
+			return rate;
+		}
+		var cartCount = 0;
+
+			
+		$('#hotelServices,#recommendedServices').on('click', '.addToCart', function() {
+			if($(this).parent().find(".date").val() != "MM/DD/YYYY") {
+				var object = $('#cartContainer').find('.contentBlock');
+				
+				$(object).append('<div class="content"><div class="detail prop"><h4 class="name">'+$(this).parent().find(".serviceName").html()+'</h4><p class="dateInfo">'+$(this).parent().find(".date").val()+'</p></div><div class="detail"><p class="rate">'+$(this).parent().find(".rate").html()+'</p><input class="serviceHiddenRate" type="hidden" value="'+$(this).parent().find(".hiddenRate").val()+'"></div><div class="detail remove"><span class="removeBlock">Remove</span></div></div>');
+				
+				var totalRate = getTotalRate();
+				$('#cartContainer').find('#totalRate').html('Total Rate: USD $'+totalRate);	
+				$(this).parent().hide();
+				cartCount = cartCount + 1;
+				$('#cart').find('.serviceCount').html(cartCount);
+				$(".confirmButton").removeAttr("disabled");
+				
+				dateArr.push($(this).parent().find(".date").val());
+				rateArr.push($(this).parent().find(".hiddenRate").val());
+				serviceIDArr.push($(this).parent().find(".hiddenID").val());
+			} else {
+				$(this).parent().find(".errorVal").show();
+			}
+		});
+		
+		$('#cartContainer').on('click', '.removeBlock', function() {
+			$(this).parent().parent().remove();
+			var totalRate = getTotalRate();
+			$('#cartContainer').find('#totalRate').html('Total Rate: USD $'+totalRate);	
+			cartCount = cartCount - 1;
+			$('#cart').find('.serviceCount').html(cartCount);
+			if(cartCount == 0) {
+				$(".confirmButton").attr("disabled", "true");
+			}
+			dateArr.splice(dateArr.indexOf($(this).parent().find(".date").val()),1);
+			rateArr.splice(rateArr.indexOf($(this).parent().find(".hiddenRate").val()),1);
+			serviceIDArr.splice(serviceIDArr.indexOf($(this).parent().find(".hiddenID").val()),1);
+		});
+		
+	$('#confirmResButton').click(function() {
+		//debugger;
+		//alert(localStorage.getItem('reservationNum'));
+		for(i=0;i<serviceIDArr.length;i++) {
+			var userdata = {
+				// reservationId: '91936',
+				 reservationId: localStorage.getItem('reservationNum'),
+				 serviceStart : dateArr[i],
+				 serviceEnd: '',
+				 serviceCost: rateArr[i],
+				 serviceReqFor:'1',
+				 serviceId: serviceIDArr[i],
+				 reservationServiceId: ''
+			};
+			var data1 = JSON.stringify(userdata);
+
+			//alert("New "+userdata.reservationId);				 
+			$.ajax({
+					url : "http://52.76.153.228:8080/AncillaryService/restservice/saveServicesPerRes ",
+					type : "POST",
+					data :  data1,
+					dataType : "json",
+					contentType : "application/json"
+					}).done(
+						function(data) {
+						 // var parseJsonServicesData = JSON.stringify(data);
+						//alert("success");
+						//localStorage.setItem('reservationNum', data1.reservationId);
+						
+							window.location.href="services.html?services=true";
+						
+					});
+		}
+
+		//window.location.href="services.html?services=true";
+
+	});
+		
+	  });
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hotel Fortune</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="js/jquery.min.js"></script>
+
+</head>
+<body>
+<!--header starts-->
+<div class="header">
+	 <div class="top-header">
+		 <div class="container">
+			 <div class="logo">
+				 <a href="index.html"><img src="images/logo.png"/></a>
+			 <div class="clearfix"></div>
+			 </div>
+			 <span class="menu"> </span>
+			 <div class="m-clear"></div>
+			 <div class="top-menu">
+			     <ul>
+					 <li><a href="index.html">HOME</a></li>
+					 <li><a href="facilities.html">FACILITIES</a></li>
+					 <li><a href="restaurant.html">RESTAURANT</a></li>
+					 <li><a  href="contact.html">CONTACT US</a></li>
+						<div class="clearfix"></div>
+				 </ul>
+				 <script>
+					$("span.menu").click(function(){
+						$(".top-menu ul").slideToggle(200);
+					});
+					
+					
+				</script>
+			 </div>
+		  </div>
+	  </div>
+</div>
+<!---->
+<div class="contact-bg2">
+	 <div class="container">
+		 <div class="booking">
+			 <h3>Booking</h3>			
+			 <div class="col-md-8 booking-form">
+				<script>
+				function getUrlVars() {
+					var vars = {};
+					var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+					});
+					return vars;
+				}
+				</script>
+				<div id="propertyInfo">
+					<div class="propertyName">
+						<script>document.write(decodeURIComponent(getUrlVars()["property"]));</script>
+					</div>
+					<div class="location">
+						<script>document.write(decodeURIComponent(getUrlVars()["city"]));</script>
+					</div>
+					<div class="propertyRate">
+						Rate: <span>USD $<script>document.write(decodeURIComponent(getUrlVars()["rate"]));</script></span>
+					</div>
+				</div>
+				 <div id="errorContent">Please enter valid information</div>
+				 <form name="bookingConfirmForm" action="services.html">
+				 <h5>NAME</h5>
+				 <input type="text" id="userName" value="">
+				 <h5>E-MAIL</h5>
+				 <input type="text" id="email" value="">
+				 <h5>PHONE</h5>
+				 <input type="text" id="phone" value="">
+				 <h5>CHECK IN:</h5>
+				 <script>document.write(decodeURIComponent(getUrlVars()["checkIn"]));</script>
+				 <h5>CHECK OUT:</h5>
+				 <script>document.write(decodeURIComponent(getUrlVars()["checkOut"]));</script>
+				 <h5 class="mem">MEMBERS</h5>
+				 <input min="1" type="number" id="quantity" name="quantity" value="1" class="form-control input-small">
+				 <input type="button" value="Confirm" id="confirmation">
+				 <input type="reset" value="Reset">
+				 </form>			      
+			 </div>
+			 <div class="col-md-4 booking-news">
+				 <h4>Latest News</h4>			
+				 <div class="LatestNews">
+					 <h6><a href="#">Ancillary Services</a></h6>
+					 <span>08/24/2016 </span>
+					 <p>Check out our new Ancillary Services on the next page.</p> 
+					 <p>You can book cabs, local city tours, fine dine and many more...</p> 
+					 
+				 </div>			
+				 <div class="LatestNews">
+					 <h6><a href="#">Recommnded Services</a></h6>
+					 <span>08/25/2016 </span>
+					 <p>Have you stayed with us previously??</p> 
+					  <p>We do recommend certain services based on your interests...</p> 
+				 </div>	
+				
+			 </div>
+		
+				<div class="clearfix"> </div>
+
+			 </div>
+		 </div>
+	 </div>
+</div>
+<!---->
+<div class="fotter">
+	 <div class="container">
+		 <h3>143 City Located Hotels World Wide</h3>
+		 <h4>"Hospitality, Quality & Good Locations. We only provide you with the best hotels" - John Deo</h4>
+		 <!--<i class="man"></i>-->
+	 </div>
+</div>
+<!---->
+<div class="fotter-info">
+	  <div class="container">
+	      <div class="col-md-5 details">
+			 <div class="hotel-info">
+				 <h4>ABOUT THIS HOTEL</h4>
+				 <p>Suspendisse erat mi, tincidunt sit amet massa quis, commodo fermentum diam. Sed nec dui nec nunc tempor interdum.</p>
+				 <p>Ut vulputate augue urna, ut porta dolor imperdiet a. Vestibulum nec leo eu magna aliquam ornare.</p>
+			 </div>
+			 <div class="news">
+				 <h4>LATEST NEWS</h4>
+				 <h5>Grand Hotel Joins DeluxelHotels</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Happy Chirstmas To Everyone</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Best Places To Visit 2014</h5>
+				 <a href="#">15 AUG</a>
+				 <h5>Various Offers</h5>
+				 <a href="#">15 AUG</a>		
+			 </div>
+				<div class="clearfix"></div>
+		 </div>
+		 <div class="col-md-7 details">
+			 <div class="join">
+				 <h4>JOIN DELUXEHOTELS</h4>
+				 <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus vestibulum blandit egestas. 
+				 Nam id lectus vel orci luctus consectetur eget id elit. In tortor odio, pellentesque eu arcu sit amet, lacinia euismod nisi. Aliquam sodales tristique mauris ac fermentum.
+				 Donec vel varius ipsum. Pellentesque vitae mollis massa. </p>
+				 <p>There is no costs or whatsoever so sign up today!</p>
+				 <a href="#">READ MORE</a>
+			 </div>
+			 <div class="member">
+			 <h4>MEMBERS AREA</h4>
+			 <form>
+			 <p>Username</p>
+			 <input type="text" placeholder="" required/>
+			 <p>Password</p>
+			 <input type="password" placeholder="" required/>		
+			 <input type="submit" value="LOGIN"/>
+			 </form>
+			 </div>
+			 <div class="clearfix"></div>
+		 </div>
+		 <div class="clearfix"></div>
+	  </div>	
+		
+</div>
+<!---->
+<script>
+	 $(document).ready(function() {
+		$('#confirmation').click(function(event) {
+			if($("#userName").val() == "" || $("#email").val() == "" || $("#phone").val() == "" || checkEmail($("#email").val()) == false) {
+				$("#errorContent").css("display","block");
+			} else {
+				$("#errorContent").css("display","none");
+				sendBookingDetails(event);
+				
+			}
+		});
+		function checkEmail(val) {
+            var regex = /^\s*[A-Z0-9.'_%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\s*$/i;
+			if(!(regex.test(val))){
+				return false;
+			}
+            return true;
+        }
+		function sendBookingDetails(event) {
+			/* alert('Property'+decodeURIComponent(getUrlVars()["property"])+
+					'City'+decodeURIComponent(getUrlVars()["city"])+
+					'Rate'+decodeURIComponent(getUrlVars()["rate"])*$("#quantity").val()+
+					'Name'+$("#userName").val()+
+					'Email'+$("#email").val()+
+					'Phone'+$("#phone").val()+
+					'Quantity'+$("#quantity").val()+
+					'CheckIn'+decodeURIComponent(getUrlVars()["checkIn"])+
+					'CheckOut'+decodeURIComponent(getUrlVars()["checkOut"])); */
+					event.preventDefault();
+					var resvPrice = decodeURIComponent(getUrlVars()["rate"])*$("#quantity").val();
+					var checkInDate = decodeURIComponent(getUrlVars()["checkIn"]);
+					var checkOutDate = decodeURIComponent(getUrlVars()["checkOut"]);
+					var guestEmail = $("#email").val();
+					var guestName = $("#userName").val();
+					var guestAddress = $("#phone").val();
+					var hotelId = decodeURIComponent(getUrlVars()["propertyId"]);
+					var resvData = {"resvPrice": resvPrice,
+	                    	 "checkInDate": checkInDate,
+	                    	 "checkOutDate": checkOutDate,
+	                    	 "guestEmail": guestEmail,
+	                    	 "guestName": guestName,
+	                    	 "guestAddress": guestAddress,
+	                    	 "hotelId": hotelId};
+					var data = JSON.stringify(resvData);
+            $.ajax({
+                     url : "http://52.76.153.228:8080/AncillaryService/restservice/saveReservation",
+                     type : "POST",
+                     data : data,
+                     dataType : "json",
+                     contentType : "application/json"
+                     }).done(
+                              function(resp) {
+                                  //alert(JSON.stringify(resp));
+                                  localStorage.setItem('guestname', guestName);
+								  localStorage.setItem('hotelId', hotelId);
+								  localStorage.setItem('guestEmail', guestEmail);
+              					  localStorage.setItem('reservationNum', JSON.stringify(resp));
+              					  document.bookingConfirmForm.submit();
+								  //window.location.href = "http://52.76.153.228:8080/fortune-web/web/services.html" 
+                              }                                                                                                              
+                     ).fail  (function(errorThrown) { alert("Error"+JSON.stringify(errorThrown)); })
+     			    .always(function(d)     { /* alert("complete"); */ })
+        }
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+/* +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= \
+----- PRIMARY 
+\ +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= */
+a, a:hover, a:focus, .navbar-default .navbar-nav li .fa-home, #timer div::before, .subscribe .btn-box::before, .item-info h6 strong, .svg.arrPrime, .day ul li i, .prime, .day .delight i, #testimonial .heading h4, #testimonial .heading::before, #testimonial .heading::after, .subscribe .submit::before {
+	color: #ffab00;
+}
+.svg.arrPrime path, #galleryCarousel .zoom .svg path {
+	fill: #252525;
+}
+/* Background PRIMARY */
+.btn-primary, .navbar-default .navbar-nav > li:hover > a, .navbar-default .navbar-nav > li.active > a, .BGprime, .btn-light:hover, .owl-theme .owl-controls .owl-buttons div, .day:hover .dayNum, .owl-carousel .item .item-header i, .bgcolor, #upcoming .item a, #upcoming.owl-theme .owl-controls .owl-buttons div, ul.social li a:hover, .additional-info span i, .modal-header, .btn-default:hover, .round, .opt .day .delight, .info-box.option.color .counter #timer, #image-slider .carousel-caption h3, #travelInfo.BGprime, h1 small::before, .subscribe .right, .item a.zoom {
+	background-color: #252525;
+}
+/* use rgba values here */
+.BGprime.opaque, .square1.opaque, #image-slider a.carousel-control {
+	background-color: rgba(3, 169, 244, 0.7);
+}
+#contact .form-control:focus {
+	border-color: #252525;
+}
+
+::-moz-selection {
+ background: #252525 ;
+ color: #fff;
+}
+::selection {
+	background: #252525 ;
+	color: #fff;
+}
+/* +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= \
+----- DARK 
+\ +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= */
+h1, h2, h3, h4, h5, h6, h1 small, .navbar-default .navbar-nav li a, #upcoming .item .name h1 span, .counter .date::after, .owl-carousel .item .item-info div.right strong, .owl-carousel .item .item-info div.left strong {
+	color: #252525;
+}
+/* Background color43 */
+.BGdark, .BGprime .owl-theme .owl-controls .owl-buttons div, .btn-sec:hover, .day .delight, #galleryCarousel .item, #upcoming .item, #travelInfo.BGdark, .btn:hover, #itinarary2.dark .day .right.placeInfo, #itinarary2.dark .day .left.placeInfo {
+	background-color: #252525;
+}
+/* use rgba values here */
+.BGdark.opaque, ul.social li a {
+	background-color: #252525;
+}
+/* +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= \
+----- MEDIUM DARK 
+\ +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= */
+.Mdark, #timer div, h5 small, .owl-carousel .item .item-info div.left, .owl-carousel .item .item-info div.right, h1 span, .day span, #travelInfo .item .item-info .info p {
+	color: #252525;
+}
+/* Background color43 */
+.BGMdark, .day .placeInfo::before, .day .dayNum, .tube {
+	background-color: #252525;
+}
+/* use rgba values here */
+.BGMdark.opaque {
+	background-color: rgba(135, 138, 148, 0.7);
+}
+/* +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= \
+----- LIGHT
+\ +=+=+=+=+=+=+=+=+=+=+=+=+=+=+= */
+/* Background LIGHT */
+.BGlight {
+	background: rgba(0, 0, 0, 0) url("../images/package-bg.jpg") no-repeat scroll 0 0 / cover ;
+	 border-bottom: 1px solid #939597;
+}
+.BGlight.opaque, #itinarary2.light .day .right.placeInfo, #itinarary2.light .day .left.placeInfo {
+	background-color: rgba(239, 241, 246, 0.7);
+}
+
+#travelInfo .owl-demo .owl-prev, #travelInfo .owl-demo .owl-next {
+	 background: #ffab00 none repeat scroll 0 0;
+}
