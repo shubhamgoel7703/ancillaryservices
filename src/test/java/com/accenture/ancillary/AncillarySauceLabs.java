@@ -1,12 +1,9 @@
 package com.accenture.ancillary;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterTest;
@@ -59,8 +56,8 @@ public class AncillarySauceLabs {
 		String PNRNumber = cnfcNumber.substring(StartingIndex+Isindex.length(), EndIndex).trim();
 		System.out.println("Confirnmation Number:"+PNRNumber);
 
-		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(scrFile, new File("C:\\apps\\testing\\booking.jpg"));
+		//File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		//FileUtils.copyFile(scrFile, new File("C:\\apps\\testing\\booking.jpg"));
 	}
 
 	@Test(priority = 2)
