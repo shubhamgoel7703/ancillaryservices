@@ -31,7 +31,7 @@ public class GeneratePDF{
 		Document document = new Document();
 		try
 		{
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\Users\\a.srinivasa.murthy\\git\\ancillaryservices\\FortuneSummryReport.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("C:\\apps\\testing\\FortuneSummryReport.pdf"));
 			document.open();
 
 			//Create chapter and sections
@@ -120,8 +120,10 @@ public class GeneratePDF{
 			}
 
 			document.add(table);
+			Paragraph sectionContent3 = new Paragraph("Total Cost of services : $"+i, greenfont);	
 			Paragraph sectionContent2 = new Paragraph("Total revenue : $"+i*0.05, greenfont);	
 			document.add(sectionContent2);
+			document.add(sectionContent3);
 			document.close();
 			writer.close();
 		} catch (Exception e){
