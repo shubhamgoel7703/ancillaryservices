@@ -33,7 +33,7 @@ public class AncillaryErrorTest{
 
 	@Test(priority = 1)
 
-	public void InvalidBookingCredentials() throws IOException
+	public void InvalidBookingCredentials() throws IOException, InterruptedException
 	{
 
 		utility.GetObject("id","datepicker").sendKeys(utility.GetTimeStamp("MM/dd/yyyy"));
@@ -54,9 +54,10 @@ public class AncillaryErrorTest{
 		String errorrMessage = utility.GetObject("id", "errorContent").getText();
 
 		Assert.assertTrue("Text not found!", errorrMessage.contains("Please enter valid information"));
+		
+		Thread.sleep(5000);
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(scrFile, new File("C:\\apps\\testing\\booking.jpg"));
-
+		FileUtils.copyFile(scrFile, new File("C:\\Desktop\\ErrorDisplayScreenshot.jpg"));
 	}
 
 	@Test(priority = 2)
