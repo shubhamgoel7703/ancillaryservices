@@ -38,7 +38,7 @@ public class GeneratePDF{
 			Paragraph chapterTitle = new Paragraph("Fortune Hotel", blackFont);
 
 			chapterTitle.setAlignment(Element.ALIGN_CENTER);
-			Paragraph sectionContent = new Paragraph("Revenue summary report for additional services for period :"+startDate, redFont);
+			Paragraph sectionContent = new Paragraph("Revenue summary report for additional services for period starting:"+startDate, redFont);
 
 
 			document.add(chapterTitle);
@@ -122,8 +122,8 @@ public class GeneratePDF{
 			document.add(table);
 			Paragraph sectionContent3 = new Paragraph("Total Cost of services : $"+i, greenfont);	
 			Paragraph sectionContent2 = new Paragraph("Total revenue : $"+i*0.05, greenfont);	
-			document.add(sectionContent2);
 			document.add(sectionContent3);
+			document.add(sectionContent2);
 			document.close();
 			writer.close();
 		} catch (Exception e){
