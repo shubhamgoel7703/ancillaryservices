@@ -120,10 +120,10 @@ public class GeneratePDF{
 			}
 
 			document.add(table);
-			Paragraph sectionContent3 = new Paragraph("Total Cost of services : $"+i, greenfont);	
-			Paragraph sectionContent2 = new Paragraph("Total revenue : $"+i*0.05, greenfont);	
+			Paragraph sectionContent3 = new Paragraph("Total revenue generated from services : $"+i, greenfont);	
+			//Paragraph sectionContent2 = new Paragraph("Total revenue : $"+i*0.05, greenfont);	
 			document.add(sectionContent3);
-			document.add(sectionContent2);
+			//document.add(sectionContent2);
 			document.close();
 			writer.close();
 		} catch (Exception e){
